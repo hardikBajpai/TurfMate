@@ -16,7 +16,16 @@ async function main(){
    await mongoose.connect(MONGO_URL);
 }
 
+app.get('/test' , (req , res)=>{
+  let sampleTurf = new Turf( {
+    name:"Kanpur Turf",
+    price:2000,
+  })
 
+  sampleTurf.save();
+  console.log(sampleTurf);
+  res.send("Done");
+})
 
 
 app.listen(port , ()=>{

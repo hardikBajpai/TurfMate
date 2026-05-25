@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const turfSchema = new mongoose.Schema({
   name:{
    type: String,
-   require:true
+   required:true
   },
   location:String,
   price:Number,
