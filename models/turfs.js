@@ -12,6 +12,10 @@ const turfSchema = new mongoose.Schema({
     default:"https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
     set:(v)=>
       v===""?"https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png":v
+  },
+  description:{
+    type:String,
+    required:true
   }
 });
 
