@@ -1,308 +1,354 @@
-const sampleTurfs = [
+const turfs = [
   {
-    name: "PowerPlay Arena",
-    location: "Kanpur",
+    name: "Green Arena Turf",
+    location: "Andheri West, Mumbai",
     price: 1200,
-    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png"
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "A well-maintained 5-a-side turf with floodlights, ideal for evening matches and corporate tournaments.",
   },
   {
-    name: "Boundary Blasters",
-    location: "Lucknow",
+    name: "Champions Ground",
+    location: "Koramangala, Bangalore",
     price: 1500,
-    image: "https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a"
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Premium FIFA-quality artificial grass turf perfect for 7-a-side football with changing rooms and shower facilities.",
   },
   {
-    name: "Champion Turf",
-    location: "Delhi",
+    name: "SportZone Box Cricket",
+    location: "Sector 18, Noida",
+    price: 900,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Enclosed box cricket turf with rubber pitch surface. Nets on all sides. Suitable for 6-over quick matches.",
+  },
+  {
+    name: "PlayField Pro",
+    location: "Banjara Hills, Hyderabad",
+    price: 1100,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Multi-sport turf facility supporting football, cricket, and hockey. Covered with anti-UV shade nets.",
+  },
+  {
+    name: "KickOff Arena",
+    location: "Salt Lake City, Kolkata",
+    price: 800,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Budget-friendly turf with synthetic grass, open-air setting, and nearby parking. Great for weekend warriors.",
+  },
+  {
+    name: "The Pitch Club",
+    location: "Powai, Mumbai",
     price: 1800,
-    image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e"
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Luxury 5-a-side turf with video recording setup, referee services, and a sports café on the premises.",
   },
   {
-    name: "Night Riders Arena",
-    location: "Noida",
+    name: "Goal Post Turf",
+    location: "Whitefield, Bangalore",
     price: 1300,
-    image: "https://images.unsplash.com/photo-1521412644187-c49fa049e84d"
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Spacious 7-a-side turf with high-quality imported grass and full lighting system for night matches.",
   },
   {
-    name: "Super Over Ground",
-    location: "Ghaziabad",
-    price: 1400,
-    image: "https://images.unsplash.com/photo-1505842465776-3d90f616310d"
+    name: "Striker's Den",
+    location: "Anna Nagar, Chennai",
+    price: 950,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Popular local turf with multiple slots available daily. Suitable for school and college tournaments.",
   },
   {
-    name: "Victory Turf",
-    location: "Mumbai",
-    price: 2200,
-    image: "https://images.unsplash.com/photo-1486286701208-1d58e9338013"
+    name: "Net & Turf",
+    location: "Aundh, Pune",
+    price: 1050,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Combination cricket net and turf facility. Excellent drainage system ensuring playability even after rain.",
   },
   {
-    name: "Hitman Arena",
-    location: "Pune",
-    price: 1600,
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc"
+    name: "AstroSport Turf",
+    location: "Gomti Nagar, Lucknow",
+    price: 700,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Affordable astroturf ground for football and cricket in the heart of Lucknow with ample seating for spectators.",
   },
   {
-    name: "Sky Shot Turf",
-    location: "Hyderabad",
-    price: 1700,
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b"
-  },
-  {
-    name: "Sixer Point",
-    location: "Bangalore",
+    name: "ElitePlay Grounds",
+    location: "Gachibowli, Hyderabad",
     price: 2000,
-    image: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55"
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "State-of-the-art turf near IT hub. Includes locker rooms, refreshment corner, and professional-grade floodlights.",
   },
   {
-    name: "Greenfield Arena",
-    location: "Chennai",
-    price: 1450,
-    image: "https://images.unsplash.com/photo-1522778119026-d647f0596c20"
-  },
-
-  {
-    name: "Thunder Turf",
-    location: "Jaipur",
-    price: 1350,
-    image: "https://images.unsplash.com/photo-1508098682722-e99c643e7485"
+    name: "City Box Cricket",
+    location: "Karol Bagh, Delhi",
+    price: 850,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Centrally located box cricket venue ideal for quick evening games. Open 6 AM to 11 PM daily.",
   },
   {
-    name: "Elite Cricket Hub",
-    location: "Ahmedabad",
-    price: 1750,
-    image: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12"
+    name: "Thunder Pitch",
+    location: "Malviya Nagar, Jaipur",
+    price: 750,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Covered synthetic turf with cushioned surface to reduce player fatigue. Beginner-friendly environment.",
   },
   {
-    name: "Rapid Fire Turf",
-    location: "Indore",
-    price: 1250,
-    image: "https://images.unsplash.com/photo-1547347298-4074fc3086f0"
-  },
-  {
-    name: "Royal Strikers",
-    location: "Patna",
-    price: 1150,
-    image: "https://images.unsplash.com/photo-1471295253337-3ceaaedca402"
-  },
-  {
-    name: "Cricket Hub",
-    location: "Bhopal",
-    price: 1550,
-    image: "https://images.unsplash.com/photo-1518604666860-9ed391f76460"
-  },
-  {
-    name: "Master Blasters",
-    location: "Surat",
-    price: 1650,
-    image: "https://images.unsplash.com/photo-1502904550040-7534597429ae"
-  },
-  {
-    name: "Turf Titans",
-    location: "Nagpur",
+    name: "SpeedKick Futsal",
+    location: "Viman Nagar, Pune",
     price: 1400,
-    image: "https://images.unsplash.com/photo-1494172961521-33799ddd43a5"
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Dedicated futsal turf with standard court dimensions, match-ready kits on rent, and scoreboard display.",
   },
   {
-    name: "Prime Sports Arena",
-    location: "Chandigarh",
-    price: 1900,
-    image: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e"
+    name: "Sunrise Turf",
+    location: "Kochi, Kerala",
+    price: 1000,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Scenic turf facility near the backwaters. Suitable for 5-a-side football and recreational cricket.",
   },
   {
-    name: "Spin Masters Turf",
-    location: "Ranchi",
-    price: 1500,
-    image: "https://images.unsplash.com/photo-1575361204480-aadea25e6e68"
+    name: "GreenZone Arena",
+    location: "Bhopal, Madhya Pradesh",
+    price: 650,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Economical turf space for community sports activities. Hosts local football leagues every Sunday.",
   },
   {
-    name: "Box Cricket Zone",
-    location: "Kolkata",
-    price: 2100,
-    image: "https://images.unsplash.com/photo-1517466787929-bc90951d0974"
-  },
-
-  {
-    name: "Stadium Edge",
-    location: "Meerut",
-    price: 1300,
-    image: ""
+    name: "Diamond Turf",
+    location: "Satellite, Ahmedabad",
+    price: 1100,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Premium turf with anti-shock base layer for player safety. Available for corporate bookings and tournaments.",
   },
   {
-    name: "Game Changers Arena",
-    location: "Agra",
-    price: 1250,
-    image: ""
-  },
-  {
-    name: "All Stars Turf",
-    location: "Varanasi",
-    price: 1450,
-    image: ""
-  },
-  {
-    name: "Winning Shot Arena",
-    location: "Prayagraj",
-    price: 1550,
-    image: ""
-  },
-  {
-    name: "Urban Cricket Box",
-    location: "Dehradun",
-    price: 1750,
-    image: ""
-  },
-  {
-    name: "Fast Track Turf",
-    location: "Amritsar",
-    price: 1600,
-    image: ""
-  },
-  {
-    name: "Legends Arena",
-    location: "Jodhpur",
-    price: 1800,
-    image: ""
-  },
-  {
-    name: "BlueSky Turf",
-    location: "Udaipur",
-    price: 1400,
-    image: ""
-  },
-  {
-    name: "CricKing Arena",
-    location: "Raipur",
-    price: 1500,
-    image: ""
-  },
-  {
-    name: "Turf Warriors",
-    location: "Gwalior",
-    price: 1350,
-    image: ""
-  },
-
-  {
-    name: "Dream11 Arena",
-    location: "Nashik",
-    price: 1700,
-    image: ""
-  },
-  {
-    name: "Street Cricket Hub",
-    location: "Aurangabad",
-    price: 1200,
-    image: ""
-  },
-  {
-    name: "Golden Wickets",
-    location: "Faridabad",
-    price: 1450,
-    image: ""
-  },
-  {
-    name: "Boundary Kings",
-    location: "Sonipat",
-    price: 1500,
-    image: ""
-  },
-  {
-    name: "Power Hitters Turf",
-    location: "Panipat",
-    price: 1350,
-    image: ""
+    name: "Blaze Sports Hub",
+    location: "Vastrapur, Ahmedabad",
+    price: 950,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Vibrant sports hub with turf, badminton courts, and table tennis. Great for a full evening of sport.",
   },
   {
     name: "Victory Ground",
-    location: "Shimla",
-    price: 2000,
-    image: ""
+    location: "Hinjewadi, Pune",
+    price: 1250,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Preferred turf destination for IT professionals. Flexible booking slots and online reservation system.",
   },
   {
-    name: "The Cricket Bay",
-    location: "Mysore",
-    price: 1650,
-    image: ""
-  },
-  {
-    name: "Ultimate Turf Zone",
-    location: "Coimbatore",
-    price: 1550,
-    image: ""
-  },
-  {
-    name: "Arena 11",
-    location: "Visakhapatnam",
-    price: 1750,
-    image: ""
-  },
-  {
-    name: "Turbo Turf",
-    location: "Vijayawada",
-    price: 1500,
-    image: ""
-  },
-
-  {
-    name: "Pitch Masters",
-    location: "Trivandrum",
-    price: 1600,
-    image: ""
-  },
-  {
-    name: "Cricket Square",
-    location: "Kochi",
-    price: 1800,
-    image: ""
-  },
-  {
-    name: "SportsVille Turf",
-    location: "Madurai",
-    price: 1450,
-    image: ""
-  },
-  {
-    name: "Kingdom Arena",
-    location: "Salem",
-    price: 1300,
-    image: ""
-  },
-  {
-    name: "GamePoint Turf",
-    location: "Hubli",
-    price: 1400,
-    image: ""
-  },
-  {
-    name: "The Turf Spot",
-    location: "Belgaum",
-    price: 1500,
-    image: ""
-  },
-  {
-    name: "Victory Box Cricket",
-    location: "Jammu",
+    name: "Red Card Turf",
+    location: "Sector 56, Gurugram",
     price: 1700,
-    image: ""
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Premium football-only turf near Cyber City. Certified referee available on weekends for organized fixtures.",
   },
   {
-    name: "Champion Sports Hub",
-    location: "Srinagar",
-    price: 2100,
-    image: ""
+    name: "CrossBar Arena",
+    location: "Indiranagar, Bangalore",
+    price: 1600,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Trendy turf spot popular among young professionals. Equipped with Bluetooth speaker system and team bibs.",
   },
   {
-    name: "Cricket Fever Arena",
-    location: "Guwahati",
-    price: 1550,
-    image: ""
+    name: "HattrickZone",
+    location: "Madhapur, Hyderabad",
+    price: 1350,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Spacious 8-a-side turf ground with large spectator gallery and tournament hosting facilities.",
   },
   {
-    name: "Mega Turf Arena",
-    location: "Shillong",
-    price: 1650,
-    image: ""
-  }
+    name: "PitchPerfect Sports",
+    location: "Navi Mumbai, Maharashtra",
+    price: 1100,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Well-lit turf with comfortable seating area and complimentary drinking water for all players.",
+  },
+  {
+    name: "UrbanKick Turf",
+    location: "HSR Layout, Bangalore",
+    price: 1450,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Modern turf with cushioned sidelines and video replay facility. Popular for amateur league matches.",
+  },
+  {
+    name: "Dribble Zone",
+    location: "Thane, Maharashtra",
+    price: 1000,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Friendly neighbourhood turf open to all age groups. Coaching sessions available on Saturday mornings.",
+  },
+  {
+    name: "FlagPost Turf",
+    location: "Nagpur, Maharashtra",
+    price: 700,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Affordable outdoor turf with natural grass-blend surface. Ideal for morning practice sessions.",
+  },
+  {
+    name: "FullTime Grounds",
+    location: "Chandigarh, Punjab",
+    price: 900,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Centrally located turf in Chandigarh with monthly membership packages available for regular players.",
+  },
+  {
+    name: "Clutch Sports Turf",
+    location: "Mohali, Punjab",
+    price: 850,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Dual-purpose turf for football and cricket. Hosts inter-school tournaments throughout the academic year.",
+  },
+  {
+    name: "Volley & Kick",
+    location: "Indore, Madhya Pradesh",
+    price: 750,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Multi-sport complex with turf, volleyball, and kabaddi zones. Weekend rates are highly discounted.",
+  },
+  {
+    name: "ShinPad Arena",
+    location: "Surat, Gujarat",
+    price: 900,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Newly opened turf facility with premium German-grade synthetic grass and covered stands for spectators.",
+  },
+  {
+    name: "Offside Turf",
+    location: "Vadodara, Gujarat",
+    price: 800,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Popular 5-a-side venue with cool ambient lighting and a juice bar next to the playing area.",
+  },
+  {
+    name: "IronBoot Ground",
+    location: "Guwahati, Assam",
+    price: 600,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Largest turf facility in Guwahati with two separate 5-a-side pitches and an adjacent warm-up area.",
+  },
+  {
+    name: "Kicks & Wickets",
+    location: "Patna, Bihar",
+    price: 550,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Budget sports turf supporting both football and cricket. Community-friendly with group discounts available.",
+  },
+  {
+    name: "Footwork Turf",
+    location: "Raipur, Chhattisgarh",
+    price: 600,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Spacious outdoor turf with shade netting. Frequently hosts inter-college cricket tournaments.",
+  },
+  {
+    name: "Overtime Arena",
+    location: "Bhubaneswar, Odisha",
+    price: 700,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Well-maintained synthetic turf open from early morning. Seasonal subscription packages available.",
+  },
+  {
+    name: "SuperStriker Turf",
+    location: "Visakhapatnam, Andhra Pradesh",
+    price: 850,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Seaside city turf with cool ocean breeze. Very popular for sunset football sessions.",
+  },
+  {
+    name: "PenaltyBox Ground",
+    location: "Coimbatore, Tamil Nadu",
+    price: 800,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Compact but professional turf with FIFA-approved surface and regular maintenance schedule.",
+  },
+  {
+    name: "TopCorner Turf",
+    location: "Mysuru, Karnataka",
+    price: 950,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Rooftop turf facility with panoramic views of the city. Ideal for private team bookings.",
+  },
+  {
+    name: "PowerPlay Turf",
+    location: "Mangalore, Karnataka",
+    price: 900,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Coastal city turf with quick-dry technology. Popular for mixed cricket and football sessions.",
+  },
+  {
+    name: "RoofTop Kick Arena",
+    location: "Kolkata, West Bengal",
+    price: 1300,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Elevated rooftop football turf in North Kolkata. Evening skyline views make it a unique playing experience.",
+  },
+  {
+    name: "League Zone Turf",
+    location: "Dehradun, Uttarakhand",
+    price: 750,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Hilly city turf with pleasant weather year-round. Excellent for morning and evening sessions alike.",
+  },
+  {
+    name: "TurfKing Sports",
+    location: "Shimla, Himachal Pradesh",
+    price: 700,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Mountain-town turf with heated changing rooms. Stays playable through most of the winter season.",
+  },
+  {
+    name: "GoldenBoot Turf",
+    location: "Amritsar, Punjab",
+    price: 800,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Heritage city turf popular with school and college teams. Seasonal coaching camps also conducted here.",
+  },
+  {
+    name: "Turf Republic",
+    location: "Ludhiana, Punjab",
+    price: 850,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Large-format turf facility accommodating 11-a-side matches. Corporate booking discounts available on weekdays.",
+  },
+  {
+    name: "StrikeZone Turf",
+    location: "Agra, Uttar Pradesh",
+    price: 650,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Affordable turf near the city center. Great for friendly matches, evening practice, and local league games.",
+  },
+  {
+    name: "FormationTurf",
+    location: "Kanpur, Uttar Pradesh",
+    price: 700,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Well-known turf in Kanpur open seven days a week. Strong local community following and regular tournaments.",
+  },
+  {
+    name: "WinnersTurf",
+    location: "Varanasi, Uttar Pradesh",
+    price: 600,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Clean and well-lit turf in Varanasi with flexible hourly slots and group booking options.",
+  },
+  {
+    name: "MatchPoint Turf",
+    location: "Nashik, Maharashtra",
+    price: 850,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Dual-pitch sports facility that can be split into two 5-a-side turfs or combined for large tournaments.",
+  },
+  {
+    name: "NightOwl Turf",
+    location: "Kolhapur, Maharashtra",
+    price: 900,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Open until midnight, NightOwl Turf caters to late-night players with top-tier floodlighting and security.",
+  },
+  {
+    name: "FloodLight Grounds",
+    location: "Jodhpur, Rajasthan",
+    price: 750,
+    image: "https://5.imimg.com/data5/SELLER/Default/2022/1/ZW/MQ/CO/15068556/box-cricket-500x500.png",
+    description: "Desert city turf built with heat-resistant synthetic grass. Shaded spectator area and cool mist fans installed.",
+  },
 ];
 
-module.exports = { data: sampleTurfs };
+module.exports = turfs;

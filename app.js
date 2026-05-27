@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const port = 8080;
 const Turf = require('./models/turfs');
+const path = require("path");
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
 
@@ -16,15 +17,22 @@ async function main(){
    await mongoose.connect(MONGO_URL);
 }
 
-app.get('/test' , (req , res)=>{
-  let sampleTurf = new Turf( {
-    name:"Kanpur Turf",
-    price:2000,
-  })
+app.set("view engine" , "ejs");
+app.set("views" , path.join(__dirname , "views"));
+app.use(express.urlencoded({extended : true}));
 
-  sampleTurf.save();
-  console.log(sampleTurf);
-  res.send("Done");
+//Index Route
+app.get('/turfs' , async(req , res)=>{
+ const allTurfs = await Turf.find({});
+ console.log(allTurfs);
+ res.render("turfs/index.ejs" , {allTurfs});
+})
+
+//Show Route
+app.get('/turfs/:id' , async(req , res)=>{
+  let {id} = req.params;
+  let turf = await Turf.findById(id);
+  res.render("turfs/show.ejs" , {turf});
 })
 
 

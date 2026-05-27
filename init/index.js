@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const initData = reuire('./data.js');
+const initData = require('./data.js');
 const Turf = require('../models/turfs');
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
@@ -16,7 +16,7 @@ async function main(){
 
 const initDB = async ()=>{
     Turf.deleteMany({});
-    Turf.insertMany(initData.data);
+    Turf.insertMany(initData);
     console.log("Data has been initialized!!");
 }
 
