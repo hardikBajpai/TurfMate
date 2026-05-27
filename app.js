@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const port = 8080;
 const Turf = require('./models/turfs');
 const path = require("path");
+const ejsMate = require("ejs-mate");
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
 
@@ -20,6 +21,7 @@ async function main(){
 app.set("view engine" , "ejs");
 app.set("views" , path.join(__dirname , "views"));
 app.use(express.urlencoded({extended : true}));
+app.engine('ejs' , ejsMate);
 
 //Index Route
 app.get('/turfs' , async(req , res)=>{
