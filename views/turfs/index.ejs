@@ -1,7 +1,5 @@
 <% layout('layouts/boilerplate') -%>
-<body>
-    <h1>Turfmate</h1>
-    
+<body>    
     <ul>
         <% for(let turf of allTurfs){ %>
            <a href="/turfs/<%= turf._id%>"><li><%= turf.name %></li></a>

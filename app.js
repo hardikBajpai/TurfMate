@@ -22,11 +22,11 @@ app.set("view engine" , "ejs");
 app.set("views" , path.join(__dirname , "views"));
 app.use(express.urlencoded({extended : true}));
 app.engine('ejs' , ejsMate);
+app.use(express.static("public"));
 
 //Index Route
 app.get('/turfs' , async(req , res)=>{
  const allTurfs = await Turf.find({});
- console.log(allTurfs);
  res.render("turfs/index.ejs" , {allTurfs});
 })
 
