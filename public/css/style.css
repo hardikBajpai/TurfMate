@@ -1,8 +1,47 @@
+
 body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    
 
+}
+
+.hero-section {
+    background:
+        radial-gradient(circle at 75% 50%,
+            rgba(34, 197, 94, 0.15) 0%,
+            rgba(34, 197, 94, 0.08) 25%,
+            transparent 60%),
+        #111;
+    color:white;
+    height:20rem;
+    padding: 56px 40px 32px 40px;
+}
+
+.hero-section-title{
+    color:#1db954;
+    border:1.5px solid rgb(46, 131, 46);
+    display:inline;
+    padding-left: 2rem;
+    padding-right:2rem;
+    border-radius: 2rem;
+    padding-bottom: 0.25rem;
+}
+
+.hero-section-headline{
+    height:7rem;
+    font-size: 3em;
+    line-height: 3rem;
+    margin-top:1rem;
+    font-weight: 900;
+    
+}
+
+.hero-sectionn-text{
+padding-bottom: 1rem;
+padding-right:1rem;
+opacity:0.5;
 }
 
 #container{
@@ -10,7 +49,7 @@ body{
 }
 
 .navbar{      
-        height:5rem;   
+        height:4rem;   
 }
     
 .nav-link{

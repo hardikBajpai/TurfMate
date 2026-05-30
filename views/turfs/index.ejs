@@ -1,5 +1,18 @@
 <% layout('layouts/boilerplate') -%>
 <body>    
+  
+    <div class="hero-section">
+
+        <div class="hero-section-content">
+          
+            <div class="hero-section-title">Book Your Game</div>
+            <div class="hero-section-headline"> FIND THE <br><span style="color:#1db954;">PERFECT TURF</span></div>
+            <div class="hero-sectionn-text">Discover the best cricket turfs near you <br>
+Book your slot instantly and never miss a game.</div>
+
+        </div>
+        
+    </div>
     <ul>
         <% for(let turf of allTurfs){ %>
            <a style="display: inline;" href="/turfs/<%= turf._id%>"><li><%= turf.name %></li></a>
