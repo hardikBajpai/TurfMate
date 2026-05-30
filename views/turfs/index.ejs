@@ -2,7 +2,7 @@
 <body>    
     <ul>
         <% for(let turf of allTurfs){ %>
-           <a href="/turfs/<%= turf._id%>"><li><%= turf.name %></li></a>
+           <a style="display: inline;" href="/turfs/<%= turf._id%>"><li><%= turf.name %></li></a>
         <%}%>
     </ul>
 </body>

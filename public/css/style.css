@@ -1,3 +1,61 @@
-*{
-    background-color: black;
+.navbar{      
+        height:5rem;   
+}
+    
+.nav-link{
+        color:rgb(229, 233, 232)
+}
+
+.navbar-brand{
+       letter-spacing: 2px;
+       font-weight: 500;
+       font-size: xxx-large;
+}
+    
+
+.f-info-links{
+    width:100%;
+    
+}
+
+
+.f-info-links a{
+ text-decoration: none;
+ color:green;
+}
+
+.f-info-links a:hover{
+ text-decoration: underline;
+ color:green;
+}
+
+.f-info-socials{
+  font-size: 1.5rem;
+}
+
+.f-info-socials , .f-info-brand{
+  width:100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-info-socials i{
+    margin-right: 1 rem;
+}
+
+.f-info-socials i:hover{
+  opacity: 0.9;
+}
+
+.f-info{
+    text-align: center;
+    background-color:#2C2D2D;
+    color:green;
+    display: flex;
+    height:6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
