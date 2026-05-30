@@ -1,3 +1,14 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+}
+
+#container{
+    flex:1;
+}
+
 .navbar{      
         height:5rem;   
 }
@@ -46,16 +57,17 @@
 }
 
 .f-info-socials i:hover{
-  opacity: 0.9;
+  opacity: 0.7;
 }
 
 .f-info{
     text-align: center;
-    background-color:#2C2D2D;
-    color:green;
+    background-color: #111;
+    color: #fff;
     display: flex;
     height:6rem;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
+
