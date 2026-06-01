@@ -13,11 +13,34 @@ Book your slot instantly and never miss a game.</div>
         </div>
         
     </div>
-    <ul>
+
+    <div class="card-display">
+          <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1" >
         <% for(let turf of allTurfs){ %>
-           <a style="display: inline;" href="/turfs/<%= turf._id%>"><li><%= turf.name %></li></a>
-        <%}%>
-    </ul>
+            <a href="/turfs/<%= turf._id %>" class="turf-link">
+    <div class="card" >
+  <img src="<%= turf.image%>" class="card-img-top" alt="turf-image"  style="height: 15rem;">
+  <div class="card-body">
+
+    <p class="card-text"><b> <span style="font-size: 1.5rem;"><%= turf.name %></span></b> <br>
+         <i class="fa-solid fa-location-dot"></i> <%= turf.location %>
+        <hr>
+        <p class="card-price">
+            &#8377; <%= turf.price.toLocaleString("en-IN") %> <span>/ hour</span>
+        </p>
+    
+    
+    </p>
+
+  </div>
+</div>
+</a>
+  <%}%>  
+    </div>
+    </div>
+   
+        
+    
 </body>
 
 

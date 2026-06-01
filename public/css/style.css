@@ -1,10 +1,13 @@
-
+#container{
+    background-color: #10190d;
+    color:white;
+}
 body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: "jakarta";
     
-
 }
 
 .hero-section {
@@ -108,5 +111,61 @@ opacity:0.5;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+}
+
+.card{
+    margin-bottom:2rem;
+    border:1px solid rgb(109, 105, 105)!important;
+    border-bottom-left-radius: 50px;  
+    border-bottom-right-radius: 50px;
+    overflow: hidden; 
+}
+
+.card-img-top{ 
+    border-radius: 0rem !important;
+    width:100% !important;
+    object-fit: cover !important;
+}
+
+.card-body{
+    padding:1rem !important;
+    color:white !important;
+    background-color: #18181b;
+
+}
+
+.card-text p{
+    font-weight: 500 !important;
+   
+}
+
+.turf-link{
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card-display{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+
+
+.card-price{
+    font-size: 2rem;
+    font-weight: 700;
+    color: #22c55e;
+}
+
+.card-price span{
+    font-size: 1rem;
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.card:hover{
+  border:1px solid green!important;
+  transform:scale(1.02);
 }
 
