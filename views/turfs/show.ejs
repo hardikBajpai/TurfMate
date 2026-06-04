@@ -1,11 +1,31 @@
 <% layout('layouts/boilerplate') -%>
 <body>
-    
-    <h3>Turf Details : </h3>
-    <ul>
-    <li><%= turf.name %></li>
-    <li><%= turf.description %></li>
-    <li>&#8377; <%= turf.price.toLocaleString("en-IN") %></li>
-    <li><%= turf.location %></li>
-    </ul>
+
+    <div class="image-container">
+      <img src=<%=turf.image%> class="turf-image" alt="turf-image">
+    </div>
+
+    <div class="details">
+        <div class="data-details">
+            <div class="intro">
+                <h1><%=turf.name%></h1>
+                <p style="opacity: 0.5;"><i class="fa-solid fa-location-dot"></i><%=turf.location%></p>
+            </div>
+            <div class="description">
+                 <div>
+                    <h5>ABOUT THIS TURF</h5>
+                    <p><%= turf.description %></p>
+                 </div>
+            </div>
+        </div>
+
+        <div class="book-details">
+            <div class="book-price">
+                <h1><span style="color:#1db954;">&#8377; <%= turf.price.toLocaleString("en-IN") %> </span></h1> / hour
+                <hr>
+                
+            </div>
+        </div>
+    </div>
+   
 </body>
