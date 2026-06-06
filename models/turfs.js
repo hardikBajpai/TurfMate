@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const Review = require("./review");
+const Schema = mongoose.Schema;
 
 const turfSchema = new mongoose.Schema({
   name:{
@@ -16,7 +18,15 @@ const turfSchema = new mongoose.Schema({
   description:{
     type:String,
     required:true
-  }
+  },
+
+  reviews:[
+    {
+      type:Schema.Types.ObjectId,
+      ref:"Review",
+    },
+  ],
+
 });
 
 module.exports = mongoose.model('Turf' , turfSchema);
