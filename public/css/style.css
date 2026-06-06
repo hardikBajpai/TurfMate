@@ -217,6 +217,7 @@ opacity:0.5;
     felx:1;
     width:30rem;
     height:50rem;
+    border:0.5px solid grey;
 }
 
 .intro{
@@ -307,4 +308,11 @@ opacity:0.5;
 
 .custom-para-card{
     opacity:0.3;
+}
+
+.review-form{
+    background-color: #18181B;
+    padding:2rem;
+    border-radius: 1rem;
+    border:0.5px solid grey;
 }

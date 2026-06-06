@@ -8,7 +8,7 @@
     <div class="details">
         <div class="data-details">
             <div class="intro">
-                <h1><%=turf.name%></h1>
+                <h1 style="color: #1db954;font-family:Anton;"><%=turf.name%></h1>
                 <p style="opacity: 0.5;"><i class="fa-solid fa-location-dot"></i><%=turf.location%></p>
             </div>
             <div class="description">
@@ -17,7 +17,22 @@
                     <p><%= turf.description %></p>
                  </div>
             </div>
-            <h4>Leave a review</h4>
+            <br>
+            <hr>
+            <h4 style="color: #1db954;font-family:Anton">Leave a review</h4>
+            <br>
+            <div class="review-form">
+                <form action="">
+                    <label class="form-label" for="rating">Rating: </label>
+                    <input class="form-range"type="range" min="1" max="5" id="rating" name="rating">
+                    <br>
+                    <label class="form-label" for="comment">Comment: </label>
+                    <textarea  class="form-control" id="comment" name="comment" cols="30" rows="5"></textarea>
+                    <br>
+
+                    <button class="btn btn-outline-light">Submit</button>
+                </form>
+            </div>
         </div>
 
         <div class="book-details">
