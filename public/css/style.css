@@ -63,6 +63,7 @@ opacity:0.5;
        letter-spacing: 2px;
        font-weight: 500;
        font-size: xxx-large;
+       font-family: Anton;
 }
     
 
@@ -234,4 +235,76 @@ opacity:0.5;
     color: #22c55e;
 }
 
+.hero {
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(34, 197, 94, 0.15) 0%,
+        rgba(34, 197, 94, 0.08) 30%,
+        transparent 70%
+    ),
+    #050505;
+    min-height:100vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;    
+    text-align: center;
+}
 
+.content-first{
+    color:#1db954;
+    border:1px solid green;
+    display: inline;
+    padding: 0.4rem;
+    border-radius: 1rem;
+    font-size: smaller;
+}
+
+.content-center{
+    height: 20rem;
+    margin-top:2rem;
+    font-size:6.5rem;
+    line-height: 0.95;
+    font-family: Anton;
+    margin-bottom:1rem;
+}
+
+.content-last{
+    opacity:0.4;
+}
+
+.hero-about {
+    opacity: 0;
+    transform: translateY(80px);
+    animation: reveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.working{
+    padding: 4rem;;
+}
+
+.working-first{
+    color:#22c55e;
+    font-size: 1rem;
+}
+
+.working-instruction{
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.working-card{
+    display: flex;
+    justify-content: space-evenly;
+   
+}
+
+.custom-para-card{
+    opacity:0.3;
+}

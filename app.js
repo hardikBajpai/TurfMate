@@ -37,6 +37,10 @@ app.get('/turfs/:id' , async(req , res)=>{
   res.render("turfs/show.ejs" , {turf});
 })
 
+app.get('/about' , (req,res)=>{
+  res.render("turfs/about.ejs")
+})
+
 
 app.listen(port , ()=>{
    console.log(`Server is Listening to PORT ${port} `)
