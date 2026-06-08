@@ -5,6 +5,10 @@ const port = 8080;
 const Turf = require('./models/turfs');
 const path = require("path");
 const ejsMate = require("ejs-mate");
+const Review = require('./models/review')
+const wrapAsync = require('./utils/wrapAsync');
+const ExpressError = require('./utils/ExpressError');
+const {reviewSchema} = require("./schema.js");
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
 
@@ -24,21 +28,62 @@ app.use(express.urlencoded({extended : true}));
 app.engine('ejs' , ejsMate);
 app.use(express.static("public"));
 
+//validate Review Middleware
+const validateReview = (req , res , next)=>{
+  let {error} = reviewSchema.validate(req.body);
+  
+  if(error){
+    let errMsg = error.details.map((el)=>{el.message}).join(",");
+    throw new ExpressError(400,errMsg);
+  }else{
+    next();
+  }
+  
+}
+
 //Index Route
-app.get('/turfs' , async(req , res)=>{
+app.get('/turfs' , wrapAsync(async(req , res)=>{
  const allTurfs = await Turf.find({});
  res.render("turfs/index.ejs" , {allTurfs});
-})
+}))
 
 //Show Route
-app.get('/turfs/:id' , async(req , res)=>{
+app.get('/turfs/:id' , wrapAsync(async(req , res)=>{
   let {id} = req.params;
-  let turf = await Turf.findById(id);
+  let turf = await Turf.findById(id).populate("reviews");
   res.render("turfs/show.ejs" , {turf});
+}))
+
+//Review Post Route
+app.post('/turfs/:id/reviews' ,validateReview,wrapAsync(async(req,res , next)=>{
+
+  let turf = await Turf.findById(req.params.id);
+  let newReview = new Review(req.body.review);
+
+  turf.reviews.push(newReview);
+
+  await newReview.save();
+  await turf.save();
+
+  res.redirect(`/turfs/${turf._id}`);
+  }))
+
+app.get('/' , (req,res)=>{
+  res.send("Hi , I am running");
 })
+
 
 app.get('/about' , (req,res)=>{
   res.render("turfs/about.ejs")
+})
+
+app.use((req,res,next)=>{
+  next(new ExpressError(404 , "Page Not Found!"));
+})
+
+app.use((err , req , res , next)=>{
+  let {statusCode=500 , message="Something went wrong!"} = err;
+  res.render("error.ejs" , {message});
 })
 
 
@@ -46,6 +91,5 @@ app.listen(port , ()=>{
    console.log(`Server is Listening to PORT ${port} `)
 })
 
-app.get('/' , (req,res)=>{
-  res.send("Hi , I am running");
-})
+
+

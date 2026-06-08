@@ -22,17 +22,39 @@
             <h4 style="color: #1db954;font-family:Anton">Leave a review</h4>
             <br>
             <div class="review-form">
-                <form action="">
+                <form action="/turfs/<%=turf._id%>/reviews" method="POST" novalidate class="needs-validation">
                     <label class="form-label" for="rating">Rating: </label>
-                    <input class="form-range"type="range" min="1" max="5" id="rating" name="rating">
+                    <input class="form-range"type="range" min="1" max="5" id="rating" name="review[rating]">
                     <br>
+                    <div class="comment">
                     <label class="form-label" for="comment">Comment: </label>
-                    <textarea  class="form-control" id="comment" name="comment" cols="30" rows="5"></textarea>
+                    <textarea required class="form-control" id="comment" name="review[comment]" cols="30" rows="5"></textarea>
+                    <div class="invalid-feedback">Please Add Some Comment For Review</div>
+                    </div>
                     <br>
 
                     <button class="btn btn-outline-light">Submit</button>
                 </form>
             </div>
+            <hr>
+
+            <ul>
+            <h4 style="color: #1db954;font-family:Anton">All Reviews</h4>
+            <div class="review-cards">
+               <% for(review of turf.reviews){ %>
+          <div class="card-review">
+            <div class="card-body">
+                <h5 class="card-title">Jane Doe</h5>
+                <p class="card-text"><%= review.comment %> </p>
+                <p class="card-text"><%= review.rating %> Stars </p>
+            </div>
+
+          </div>
+        <% } %>
+            </div>
+        
+        </ul>  
+        
         </div>
 
         <div class="book-details">
@@ -42,8 +64,10 @@
                 
             </div>
         </div>
+
     </div>
 
+    
 
    
 </body>
