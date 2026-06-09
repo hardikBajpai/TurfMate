@@ -37,16 +37,19 @@
                 </form>
             </div>
             <hr>
+            <h4 style="color: #1db954;font-family:Anton">All Reviews</h4>
 
             <ul>
-            <h4 style="color: #1db954;font-family:Anton">All Reviews</h4>
             <div class="review-cards">
                <% for(review of turf.reviews){ %>
           <div class="card-review">
-            <div class="card-body">
-                <h5 class="card-title">Jane Doe</h5>
+            <div class="card-body-review">
+                <h5 class="card-title-review">Jane Doe</h5>
                 <p class="card-text"><%= review.comment %> </p>
                 <p class="card-text"><%= review.rating %> Stars </p>
+                <form action="/turfs/<%= turf._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-outline-light">Delete</button>
+            </form>
             </div>
 
           </div>

@@ -9,6 +9,7 @@ const Review = require('./models/review')
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
 const {reviewSchema} = require("./schema.js");
+const methodOverride = require("method-override");
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
 
@@ -27,6 +28,7 @@ app.set("views" , path.join(__dirname , "views"));
 app.use(express.urlencoded({extended : true}));
 app.engine('ejs' , ejsMate);
 app.use(express.static("public"));
+app.use(methodOverride("_method"));
 
 //validate Review Middleware
 const validateReview = (req , res , next)=>{
@@ -67,6 +69,17 @@ app.post('/turfs/:id/reviews' ,validateReview,wrapAsync(async(req,res , next)=>{
 
   res.redirect(`/turfs/${turf._id}`);
   }))
+
+//Review delete route
+
+app.delete("/turfs/:id/reviews/:reviewId" , wrapAsync(async(req , res)=>{
+  let {id , reviewId} = req.params;
+  await Turf.findByIdAndUpdate(id ,{$pull :{reviews : reviewId}});
+  await Review.findByIdAndDelete(reviewId);
+  
+  res.redirect(`/turfs/${id}`);
+
+}))
 
 app.get('/' , (req,res)=>{
   res.send("Hi , I am running");
