@@ -6,10 +6,11 @@ const Turf = require('./models/turfs');
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const Review = require('./models/review')
-const wrapAsync = require('./utils/wrapAsync');
 const ExpressError = require('./utils/ExpressError');
-const {reviewSchema} = require("./schema.js");
 const methodOverride = require("method-override");
+
+const turfs = require("./routes/turfs.js");
+const reviews = require("./routes/review.js");
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
 
@@ -30,56 +31,11 @@ app.engine('ejs' , ejsMate);
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
-//validate Review Middleware
-const validateReview = (req , res , next)=>{
-  let {error} = reviewSchema.validate(req.body);
-  
-  if(error){
-    let errMsg = error.details.map((el)=>{el.message}).join(",");
-    throw new ExpressError(400,errMsg);
-  }else{
-    next();
-  }
-  
-}
 
-//Index Route
-app.get('/turfs' , wrapAsync(async(req , res)=>{
- const allTurfs = await Turf.find({});
- res.render("turfs/index.ejs" , {allTurfs});
-}))
 
-//Show Route
-app.get('/turfs/:id' , wrapAsync(async(req , res)=>{
-  let {id} = req.params;
-  let turf = await Turf.findById(id).populate("reviews");
-  res.render("turfs/show.ejs" , {turf});
-}))
+app.use('/turfs' , turfs);
+app.use('/turfs/:id/reviews' , reviews);
 
-//Review Post Route
-app.post('/turfs/:id/reviews' ,validateReview,wrapAsync(async(req,res , next)=>{
-
-  let turf = await Turf.findById(req.params.id);
-  let newReview = new Review(req.body.review);
-
-  turf.reviews.push(newReview);
-
-  await newReview.save();
-  await turf.save();
-
-  res.redirect(`/turfs/${turf._id}`);
-  }))
-
-//Review delete route
-
-app.delete("/turfs/:id/reviews/:reviewId" , wrapAsync(async(req , res)=>{
-  let {id , reviewId} = req.params;
-  await Turf.findByIdAndUpdate(id ,{$pull :{reviews : reviewId}});
-  await Review.findByIdAndDelete(reviewId);
-  
-  res.redirect(`/turfs/${id}`);
-
-}))
 
 app.get('/' , (req,res)=>{
   res.send("Hi , I am running");
