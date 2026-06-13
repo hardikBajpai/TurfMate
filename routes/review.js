@@ -30,6 +30,7 @@ router.post('/' ,validateReview,wrapAsync(async(req,res , next)=>{
 
   await newReview.save();
   await turf.save();
+  req.flash("success" , "New Review Created!!");
 
   res.redirect(`/turfs/${turf._id}`);
   }))
@@ -40,7 +41,8 @@ router.delete("/:reviewId" , wrapAsync(async(req , res)=>{
   let {id , reviewId} = req.params;
   await Turf.findByIdAndUpdate(id ,{$pull :{reviews : reviewId}});
   await Review.findByIdAndDelete(reviewId);
-  
+  req.flash("error" , "Review Deleted!!");
+
   res.redirect(`/turfs/${id}`);
 
 }))
