@@ -328,3 +328,20 @@ opacity:0.5;
 .card-title-review{
     font-size: 2rem;
 }
+
+.login-buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-form{
+    background-color: #18181B;
+    border-radius: 1rem;
+    padding: 1rem;;
+}
+
+.form-label{
+    color:#1db954;
+    font-size: large;
+}
