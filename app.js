@@ -8,6 +8,7 @@ const ejsMate = require("ejs-mate");
 const Review = require('./models/review')
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require("method-override");
+const session = require("express-session");
 
 const turfs = require("./routes/turfs.js");
 const reviews = require("./routes/review.js");
@@ -31,6 +32,18 @@ app.engine('ejs' , ejsMate);
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
+const sessionOptions  = {
+  secret:"mysupersecretcode",
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+    expires:Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly:true
+  }
+}
+
+app.use(session(sessionOptions));
 
 
 app.use('/turfs' , turfs);
