@@ -5,6 +5,8 @@ const Turf = require('../models/turfs');
 const ExpressError = require('../utils/ExpressError');
 const Review = require('../models/review')
 const {reviewSchema} = require("../schema.js");
+const {isLoggedIn, saveRedirectUrl, isReviewAuthor} = require("../middleware.js");
+
 
 //validate Review Middleware
 const validateReview = (req , res , next)=>{
@@ -21,10 +23,13 @@ const validateReview = (req , res , next)=>{
 
 
 //Review Post Route
-router.post('/' ,validateReview,wrapAsync(async(req,res , next)=>{
+router.post('/', saveRedirectUrl,isLoggedIn, validateReview ,wrapAsync(async(req,res , next)=>{
 
+  
   let turf = await Turf.findById(req.params.id);
+
   let newReview = new Review(req.body.review);
+  newReview.author = req.user._id;
 
   turf.reviews.push(newReview);
 
@@ -37,7 +42,7 @@ router.post('/' ,validateReview,wrapAsync(async(req,res , next)=>{
 
 //Review delete route
 
-router.delete("/:reviewId" , wrapAsync(async(req , res)=>{
+router.delete("/:reviewId" ,isLoggedIn,isReviewAuthor,  wrapAsync(async(req , res)=>{
   let {id , reviewId} = req.params;
   await Turf.findByIdAndUpdate(id ,{$pull :{reviews : reviewId}});
   await Review.findByIdAndDelete(reviewId);

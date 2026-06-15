@@ -12,9 +12,17 @@ router.post("/signup",wrapAsync(async(req,res)=>{
     try{
         let {email , username , password} = req.body;
     const newUser = new User({email , username});
-    await User.register(newUser  , password);
-    req.flash("success" , "Welcome to Turfmate!!");
-    res.redirect("/turfs");
+    const registeredUser =  await User.register(newUser  , password);
+
+    req.login(registeredUser ,(err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success" , "Welcome to Turfmate!!");
+        res.redirect("/turfs"); 
+    } )
+    
+    
     }catch(er){
         req.flash("error" , er.message);
         res.redirect("/signup");
@@ -30,4 +38,14 @@ router.post('/login' , passport.authenticate("local" , {failureRedirect:'/login'
     res.redirect("/turfs");
 })
 
+router.get("/logout" , (req , res , next)=>{
+    req.logout((err)=>{
+      if(err){
+       return next(err);
+      }
+
+      req.flash("success" , "you are logged out!!");
+      res.redirect("/turfs");
+    })
+})
 module.exports = router;

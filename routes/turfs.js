@@ -14,7 +14,7 @@ router.get('/' , wrapAsync(async(req , res)=>{
 //Show Route
 router.get('/:id' , wrapAsync(async(req , res)=>{
   let {id} = req.params;
-  let turf = await Turf.findById(id).populate("reviews");
+  let turf = await Turf.findById(id).populate({path : "reviews" , populate:{path:"author"}});
   res.render("turfs/show.ejs" , {turf});
 }))
 

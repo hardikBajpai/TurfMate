@@ -44,7 +44,7 @@
                <% for(review of turf.reviews){ %>
           <div class="card-review">
             <div class="card-body-review">
-                <h5 class="card-title-review">Jane Doe</h5>
+                <h6 class="card-title-review">@<%=  review.author.username %></h6>
                 <p class="card-text"><%= review.comment %> </p>
                 <p class="card-text"><%= review.rating %> Stars </p>
                 <form action="/turfs/<%= turf._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
