@@ -13,10 +13,12 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require('./models/users');
+const Booking = require('./models/booking.js');
 
 const turfsRouter = require("./routes/turfs.js");
 const reviewsRouter = require("./routes/review.js");
 const usersRouter = require("./routes/user.js");
+
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
 
@@ -72,7 +74,7 @@ app.use((req,res,next)=>{
 
 app.use('/turfs' , turfsRouter);
 app.use('/turfs/:id/reviews' , reviewsRouter);
-app.use('/' , usersRouter);
+app.use('/user' , usersRouter);
 
 
 app.get('/about' , (req,res)=>{

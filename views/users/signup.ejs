@@ -1,30 +1,86 @@
 <% layout('layouts/boilerplate') -%>
 
-    <h3 style="color: #1db954;font-family:Anton;" class="col-6 offset-3 mt-5">SIGNUP ON TURFMATE</h3>
-    <div class="col-6 offset-3">
-        <div class="signup-form">
-         <form action="/signup" method="POST" class="needs-validation" novalidate>
-                <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" name="username" id="username" class="form-control" required>
-                <div class="valid-feedback">Looks Good!</div>
-                <div class="invalid-feedback">Username Required!</div>
+<div class="signup-container">
 
+    <div class="signup-card">
+
+        <h1 class="signup-title">SIGN UP</h1>
+
+        <p class="signup-subtitle">
+            Create your TurfMate account and start booking turfs.
+        </p>
+
+        <form action="/user/signup" method="POST" class="needs-validation" novalidate>
+
+            <div class="mb-3">
+                <label for="username" class="signup-label">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    class="form-control signup-input"
+                    placeholder="Choose a username"
+                    required>
+
+                <div class="valid-feedback">
+                    Looks Good!
                 </div>
 
-                <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-                <div class="invalid-feedback">Email Required!</div>
+                <div class="invalid-feedback">
+                    Username Required!
                 </div>
-                  
-                <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-                <div class="invalid-feedback">Password Required!</div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="signup-label">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="form-control signup-input"
+                    placeholder="Enter your email"
+                    required>
+
+                <div class="invalid-feedback">
+                    Email Required!
                 </div>
-                
-                <button class="btn btn-success">Signup</button>
-         </form>
-        </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="signup-label">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control signup-input"
+                    placeholder="Create a strong password"
+                    required>
+
+                <div class="invalid-feedback">
+                    Password Required!
+                </div>
+            </div>
+
+            <button class="btn   btn-success w-100">
+                Create Account
+            </button>
+
+            <div class="signup-footer">
+                Already have an account?
+                <a href="/user/login">Login</a>
+            </div>
+
+        </form>
+
     </div>
+
+</div>

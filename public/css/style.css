@@ -216,7 +216,7 @@ opacity:0.5;
     background-color: #18181B;
     felx:1;
     width:30rem;
-    height:50rem;
+    
     border:0.5px solid grey;
 }
 
@@ -335,13 +335,175 @@ opacity:0.5;
     align-items: center;
 }
 
-.signup-form{
-    background-color: #18181B;
-    border-radius: 1rem;
-    padding: 1rem;;
+.login-card{
+    width: 100%;
+    max-width: 500px;
+
+    background: rgba(20,20,20,0.95);
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+
+    backdrop-filter: blur(10px);
+}
+
+.custom-input{
+    background: #111;
+    border: 1px solid #333;
+    color: white;
+}
+
+.custom-input:focus{
+    background: #111;
+    color: white;
+    border-color: #1db954;
+    box-shadow: 0 0 10px rgba(29,185,84,0.4);
+}
+
+.login-btn{
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.login-btn:hover{
+    transform: translateY(-2px);
+    transition: 0.3s;
 }
 
 .form-label{
     color:#1db954;
     font-size: large;
 }
+
+.signup-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.signup-card {
+    width: 100%;
+    max-width: 550px;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.signup-title {
+    text-align: center;
+    color: #1db954;
+    font-family: Anton;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.signup-subtitle {
+    text-align: center;
+    color: #9ca3af;
+    margin-bottom: 2rem;
+}
+
+.signup-label,.login-label{
+    color: #1db954;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+.signup-input {
+    background-color: #111827;
+    color: white;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    padding: 12px;
+}
+
+.signup-input:focus {
+    background-color: #111827;
+    color: white;
+    border-color: #1db954;
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.35);
+}
+
+.signup-btn {
+    background-color: #1db954;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.signup-btn:hover {
+    background-color: #18a34a;
+    transform: translateY(-2px);
+}
+
+.signup-footer {
+    text-align: center;
+    margin-top: 1rem;
+    color: #9ca3af;
+}
+
+.signup-footer a {
+    color: #1db954;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-footer a:hover {
+    text-decoration: underline;
+}
+
+.signup-container {
+    min-height: 100vh;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.75),
+            rgba(0, 0, 0, 0.75)
+        ),
+        url("https://png.pngtree.com/thumb_back/fh260/background/20230331/pngtree-young-sportsman-batting-in-the-cricket-field-photo-image_2173241.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.login-container {
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.75),
+            rgba(0,0,0,0.75)
+        ),
+        url("https://png.pngtree.com/thumb_back/fh260/background/20230331/pngtree-young-sportsman-batting-in-the-cricket-field-photo-image_2173241.jpg");
+        
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.booking-hero{
+    padding:1rem;
+}
+

@@ -16,11 +16,11 @@
       <div class="navbar-nav ms-auto">
 
         <% if(!currUser){ %>
-        <a class="nav-link " href="/signup">Sign up</a>
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link " href="/user/signup">Sign up</a>
+        <a class="nav-link" href="/user/login">Login</a>
         <%}%>
         <% if(currUser){ %>
-        <a class="nav-link" href="/logout">Logout</a>
+        <a class="nav-link" href="/user/logout">Logout</a>
         <%}%>
       </div>
       

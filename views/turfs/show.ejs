@@ -63,9 +63,27 @@
         <div class="book-details">
             <div class="book-price">
                 <h1><span style="color:#1db954;">&#8377; <%= turf.price.toLocaleString("en-IN") %> </span></h1> / hour
-                <hr>
-                
-            </div>
+                <hr> 
+        </div>
+         <h4 style="padding-left: 1rem;">CHECK AVAILIBILITY</h4>
+        <div class="booking-hero">
+            
+           
+             <form action="/turfs/<%= turf._id %>/slots" method="GET">
+              <div class="form-group">
+                <label for="preferDate">SELECT DATE</label>
+                <input type="date" class="form-control" id="preferDate" aria-describedby="preferDate" placeholder="Choose your prefer date">
+              </div>
+              <br>
+             <button type="submit" class="btn btn-success">FIND SLOTS</button>
+</form>
+        </div>
+        <div class="booking-slot">
+            <ul>
+                <% for(let slot of allSlots) {%>
+                    <li> <%= slot %> </li>
+                 <% } %>   
+            </ul>
         </div>
 
     </div>
@@ -74,3 +92,4 @@
 
    
 </body>
+

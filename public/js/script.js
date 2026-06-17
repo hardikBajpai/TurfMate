@@ -16,3 +16,18 @@
     }, false)
   })
 })()
+
+const dateInput = document.getElementById("preferDate");
+
+const today = new Date();
+
+dateInput.value = today.toISOString().split("T")[0];
+
+
+dateInput.min = today.toISOString().split("T")[0];
+const maxDate = new Date();
+maxDate.setMonth(maxDate.getMonth() + 2);
+
+dateInput.max = maxDate.toISOString().split("T")[0];
+
+
