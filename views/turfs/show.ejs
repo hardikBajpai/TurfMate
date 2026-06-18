@@ -37,8 +37,11 @@
                 </form>
             </div>
             <hr>
+
+          <%  if(turf.reviews.length > 0){ %>
             <h4 style="color: #1db954;font-family:Anton">All Reviews</h4>
-            
+          <%  } %>
+
             <ul>
             <div class="review-cards">
                <% for(review of turf.reviews){ %>
@@ -70,26 +73,130 @@
             
            
              <form action="/turfs/<%= turf._id %>/slots" method="GET">
-              <div class="form-group">
-                <label for="preferDate">SELECT DATE</label>
-                <input type="date" class="form-control" id="preferDate" aria-describedby="preferDate" placeholder="Choose your prefer date">
-              </div>
-              <br>
-             <button type="submit" class="btn btn-success">FIND SLOTS</button>
+
+    <input
+        type="date"
+        class="form-control"
+        id="preferDate"
+        name="date"
+        required
+    >
+    <br>
+
+    <button
+        type="submit"
+        class="btn btn-success"
+    >
+        FIND SLOTS
+    </button>
+
 </form>
         </div>
-        <div class="booking-slot">
-            <ul>
-                <% for(let slot of allSlots) {%>
-                    <li> <%= slot %> </li>
-                 <% } %>   
-            </ul>
-        </div>
+
+        <div class="p-1">
+       <% if(selectedDate){ %>
+
+<form id="slots-section" action="/turfs/<%= turf._id %>/book" method="POST">
+
+    <input
+        type="hidden"
+        name="date"
+        value="<%= selectedDate %>"
+        
+    >
+
+    <div class="slot-grid">
+
+        <% for(let slot of allSlots){ %>
+
+            <% if(bookedSlots.includes(slot)){ %>
+
+                <label class="slot-card booked">
+                    <span><%= slot %> (Booked)</span>
+                </label>
+
+            <% } else { %>
+
+                <label class="slot-card">
+                    <input
+                        type="checkbox"
+                        name="slots"
+                        value="<%= slot %>"
+                        data-price="<%= turf.price %>"
+                        class="slot-checkbox"
+                    >
+                    <span><%= slot %></span>
+                </label>
+
+            <% } %>
+
+        <% } %>
 
     </div>
 
-    
+    <div class="price-summary">
+    <h3>
+        Total:
+        <span id="totalPrice">0</span>
+        ₹
+    </h3>
+</div>
 
-   
+    <button
+        type="submit"
+        class="btn btn-success book-btn"
+    >
+        Book Now
+    </button>
+
+</form>
+
+<% } %>
+
+</div>
+        
+
+    </div>   
+    <script>
+
+const checkboxes =
+document.querySelectorAll(".slot-checkbox");
+
+const totalPrice =
+document.getElementById("totalPrice");
+
+checkboxes.forEach((checkbox)=>{
+
+    checkbox.addEventListener("change", ()=>{
+
+        let total = 0;
+
+        checkboxes.forEach((cb)=>{
+
+            if(cb.checked){
+                total += Number(cb.dataset.price);
+            }
+
+        });
+
+        totalPrice.textContent = total;
+    });
+
+});
+
+</script>
 </body>
+
+<% if(selectedDate){ %>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document
+            .getElementById("slots-section")
+            ?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+    });
+</script>
+<% } %>
 

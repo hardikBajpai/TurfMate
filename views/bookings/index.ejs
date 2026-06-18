@@ -1,0 +1,100 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="container mt-5">
+
+    <h1 class="booking-heading">
+        MY BOOKINGS
+    </h1>
+
+    <% if(bookings.length === 0){ %>
+
+        <div class="empty-bookings">
+            <h4>No bookings found</h4>
+            <p>Book a turf and it will appear here.</p>
+            <a href="/turfs" class="btn btn-success">
+                Explore Turfs
+            </a>
+        </div>
+
+    <% } %>
+
+    <div class="booking-container">
+
+        <% bookings.forEach(booking => { %>
+
+            <div class="booking-card">
+
+                <img
+                    src="<%= booking.turf.image %>"
+                    alt="turf-image"
+                    class="booking-image"
+                >
+
+                <div class="booking-content">
+
+                    <h3>
+                        <%= booking.turf.name %>
+                    </h3>
+
+                    <p>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= booking.turf.location %>
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        <strong>Date:</strong>
+                        <%= booking.date %>
+                    </p>
+
+                    <p>
+                        <strong>Slot:</strong>
+                        <%= booking.slot %>
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+
+                        <% if(booking.status === "booked"){ %>
+
+                            <span class="status-booked">
+                                Booked
+                            </span>
+
+                        <% } else { %>
+
+                            <span class="status-cancelled">
+                                Cancelled
+                            </span>
+
+                        <% } %>
+
+                    </p>
+
+                    <% if(booking.status === "booked"){ %>
+
+                        <form
+                           action="/turfs/bookings/<%= booking._id %>/cancel?_method=PUT"
+                           method="POST"
+                        >
+
+                            <button
+                                class="btn btn-outline-danger"
+                            >
+                                Cancel Booking
+                            </button>
+
+                        </form>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        <% }) %>
+
+    </div>
+
+</div>
