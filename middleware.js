@@ -27,3 +27,20 @@ module.exports.isReviewAuthor = async(req , res , next)=>{
     }
     next();
 }
+
+module.exports.isOwner = (req,res,next)=>{
+
+    if(
+        !req.user ||
+        req.user.role !== "owner"
+    ){
+        req.flash(
+            "error",
+            "Owner access only"
+        );
+
+        return res.redirect("/");
+    }
+
+    next();
+}

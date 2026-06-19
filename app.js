@@ -18,6 +18,7 @@ const Booking = require('./models/booking.js');
 const turfsRouter = require("./routes/turfs.js");
 const reviewsRouter = require("./routes/review.js");
 const usersRouter = require("./routes/user.js");
+const ownerRouter = require("./routes/owner.js");
 
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
@@ -75,6 +76,7 @@ app.use((req,res,next)=>{
 app.use('/turfs' , turfsRouter);
 app.use('/turfs/:id/reviews' , reviewsRouter);
 app.use('/user' , usersRouter);
+app.use('/owner' , ownerRouter);
 
 app.get('/home' , (req,res)=>{
   res.render("turfs/home.ejs");

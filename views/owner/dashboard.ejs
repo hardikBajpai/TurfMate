@@ -1,0 +1,88 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="container mt-4">
+
+    <h1
+        style="
+        color:#1db954;
+        font-family:Anton;
+        "
+    >
+        OWNER DASHBOARD
+    </h1>
+
+    <hr>
+
+    <h3>Today's Bookings</h3>
+
+    <% if(bookings.length === 0){ %>
+
+        <p>
+            No bookings today.
+        </p>
+
+    <% } %>
+
+    <% for(let booking of bookings){ %>
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <h5>
+                    <%= booking.turf.name %>
+                </h5>
+
+                <p>
+                    Slot:
+                    <%= booking.slot %>
+                </p>
+
+                <p>
+                    Date:
+                    <%= booking.date %>
+                </p>
+
+                <p>
+                    User:
+                    <%= booking.user.username %>
+                </p>
+
+            </div>
+
+        </div>
+
+    <% } %>
+
+    <hr>
+
+    <h3>My Turfs</h3>
+
+    <% for(let turf of turfs){ %>
+
+        <div class="card mb-3">
+
+            <div class="card-body">
+
+                <h5>
+                    <%= turf.name %>
+                </h5>
+
+                <p>
+                    <%= turf.location %>
+                </p>
+
+                <a
+                    href="/turfs/<%= turf._id %>"
+                    class="btn btn-success"
+                >
+                    View Turf
+                </a>
+
+            </div>
+
+        </div>
+
+    <% } %>
+
+</div>
