@@ -76,6 +76,10 @@ app.use('/turfs' , turfsRouter);
 app.use('/turfs/:id/reviews' , reviewsRouter);
 app.use('/user' , usersRouter);
 
+app.get('/home' , (req,res)=>{
+  res.render("turfs/home.ejs");
+})
+
 
 app.get('/about' , (req,res)=>{
   res.render("turfs/about.ejs")
