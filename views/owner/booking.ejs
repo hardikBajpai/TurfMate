@@ -1,0 +1,54 @@
+<% layout('layouts/ownerBoilerplate') -%>
+
+<div class="container py-4">
+
+    <h1 class="dashboard-title">
+        Booking History
+    </h1>
+
+    <% if(bookings.length === 0){ %>
+
+        <div class="empty-state">
+            No bookings found.
+        </div>
+
+    <% } %>
+
+    <% for(let booking of bookings){ %>
+
+        <div class="booking-history-card">
+
+            <div>
+
+                <h4>
+                    <%= booking.turf.name %>
+                </h4>
+
+                <p>
+                    User:
+                    <%= booking.user.username %>
+                </p>
+
+            </div>
+
+            <div class="booking-info">
+
+                <span>
+                    <%= booking.date %>
+                </span>
+
+                <span>
+                    <%= booking.slot %>
+                </span>
+
+                <span class="status-booked">
+                    <%= booking.status %>
+                </span>
+
+            </div>
+
+        </div>
+
+    <% } %>
+
+</div>

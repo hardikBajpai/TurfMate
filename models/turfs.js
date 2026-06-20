@@ -9,9 +9,15 @@ const turfSchema = new mongoose.Schema({
     required:true
   },
 
-  location:String,
+  location:{
+    type:String,
+    required:true
+  },
 
-  price:Number,
+  price:{
+   type: Number,
+   required:true
+  },
 
   image:{
     type:String,

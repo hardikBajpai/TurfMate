@@ -65,4 +65,75 @@ router.get(
     }
 );
 
+router.get('/new'  , (req,res)=>{
+    res.render("owner/new");
+});
+
+router.post(
+    "/turfs",
+    isLoggedIn,
+    isOwner,
+    async(req,res)=>{
+        const turf = new Turf(req.body.turf);
+
+        turf.owner = req.user._id;
+
+        await turf.save();
+
+        req.flash(
+            "success",
+            "Turf created successfully!"
+        );
+
+        res.redirect("/owner/dashboard");
+    }
+);
+
+router.get("/:id/edit" , async(req , res )=>{
+    let {id} = req.params;
+    const turf = await Turf.findById(id);
+    
+    res.render("owner/edit" , {turf});
+})
+
+router.post("/:id" , async(req,res)=>{
+    let {id} = req.params;
+    await Turf.findByIdAndUpdate(id , {...req.body.turf});
+    res.redirect("/owner/dashboard");
+})
+
+router.get('/:id/delete' , async(req , res)=>{
+    let {id} = req.params;
+    await Turf.findByIdAndDelete(id);
+    req.flash('success' , "Turf Deleted!!");
+    res.redirect("/owner/dashboard");
+})
+
+router.get(
+    "/bookings",
+    isLoggedIn,
+    isOwner,
+    async(req,res)=>{
+
+        const turfs = await Turf.find({
+            owner:req.user._id
+        });
+
+        const bookings = await Booking.find({
+            turf:{
+                $in: turfs.map(
+                    turf => turf._id
+                )
+            }
+        })
+        .populate("user")
+        .populate("turf")
+        .sort({ date:-1 });
+
+        res.render(
+            "owner/booking",
+            { bookings }
+        );
+    }
+);
 module.exports = router;

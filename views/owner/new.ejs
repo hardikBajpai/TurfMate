@@ -1,0 +1,99 @@
+<% layout('layouts/ownerBoilerplate') -%>
+
+<div class="container-new py-5">
+
+    <div class="login-card mx-auto p-4">
+
+        <h1
+            class="text-center mb-4"
+            style="color:#1db954;font-family:Anton;"
+        >
+            CREATE TURF
+        </h1>
+
+        <form action="/owner/turfs" method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Turf Name
+                </label>
+
+                <input
+                    type="text"
+                    name="turf[name]"
+                    class="form-control custom-input"
+                    placeholder="Enter turf name"
+                    required
+                >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    name="turf[location]"
+                    class="form-control custom-input"
+                    placeholder="Kanpur, Uttar Pradesh"
+                >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Price Per Hour (₹)
+                </label>
+
+                <input
+                    type="number"
+                    name="turf[price]"
+                    class="form-control custom-input"
+                    placeholder="500"
+                    min="0"
+                >
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Image URL
+                </label>
+
+                <input
+                    type="text"
+                    name="turf[image]"
+                    class="form-control custom-input"
+                    placeholder="https://example.com/image.jpg"
+                >
+
+                <small class="text-secondary">
+                    Leave blank to use default image
+                </small>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea
+                    name="turf[description]"
+                    rows="5"
+                    class="form-control custom-input"
+                    placeholder="Describe your turf..."
+                    required
+                ></textarea>
+            </div>
+
+            <button
+                class="btn btn-success w-100 login-btn"
+                type="submit"
+            >
+                Create Turf
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
