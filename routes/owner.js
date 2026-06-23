@@ -55,11 +55,20 @@ router.get(
             .populate("user")
             .populate("turf");
 
+         let todayRevenue = 0;
+
+        for(let booking of bookings){
+
+            todayRevenue +=
+                booking.turf.price;
+        }
+
         res.render(
             "owner/dashboard",
             {
                 turfs,
-                bookings
+                bookings,
+                todayRevenue
             }
         );
     }

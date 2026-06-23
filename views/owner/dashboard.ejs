@@ -19,27 +19,37 @@
 
     <div class="stats-grid">
 
-        <div class="dashboard-stat-card">
+    <div class="dashboard-stat-card">
 
-            <h6>Total Turfs</h6>
+        <h6>Total Turfs</h6>
 
-            <div class="stat-number">
-                <%= turfs.length %>
-            </div>
-
-        </div>
-
-        <div class="dashboard-stat-card">
-
-            <h6>Today's Bookings</h6>
-
-            <div class="stat-number">
-                <%= bookings.length %>
-            </div>
-
+        <div class="stat-number">
+            <%= turfs.length %>
         </div>
 
     </div>
+
+    <div class="dashboard-stat-card">
+
+        <h6>Today's Bookings</h6>
+
+        <div class="stat-number">
+            <%= bookings.length %>
+        </div>
+
+    </div>
+
+    <div class="dashboard-stat-card revenue-card">
+
+        <h6>Today's Revenue</h6>
+
+        <div class="stat-number">
+            ₹ <%= todayRevenue.toLocaleString("en-IN") %>
+        </div>
+
+    </div>
+
+</div>
 
     <section class="dashboard-section">
 
