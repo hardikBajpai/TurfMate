@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router({mergeParams:true});
 const wrapAsync = require('../utils/wrapAsync');
-const Turf = require('../models/turfs');
 const ExpressError = require('../utils/ExpressError');
-const Review = require('../models/review')
-const {reviewSchema} = require("../schema.js");
 const {isLoggedIn, saveRedirectUrl, isReviewAuthor} = require("../middleware.js");
+const {reviewSchema} = require("../schema.js");
 
+const reviewController = require("../controllers/reviews.js");
+const review = require("../models/review.js");
 
 //validate Review Middleware
 const validateReview = (req , res , next)=>{
@@ -23,33 +23,10 @@ const validateReview = (req , res , next)=>{
 
 
 //Review Post Route
-router.post('/', saveRedirectUrl,isLoggedIn, validateReview ,wrapAsync(async(req,res , next)=>{
+router.post('/', saveRedirectUrl,isLoggedIn, validateReview ,wrapAsync(reviewController.postReview));
 
-  
-  let turf = await Turf.findById(req.params.id);
-
-  let newReview = new Review(req.body.review);
-  newReview.author = req.user._id;
-
-  turf.reviews.push(newReview);
-
-  await newReview.save();
-  await turf.save();
-  req.flash("success" , "New Review Created!!");
-
-  res.redirect(`/turfs/${turf._id}`);
-  }))
 
 //Review delete route
-
-router.delete("/:reviewId" ,isLoggedIn,isReviewAuthor,  wrapAsync(async(req , res)=>{
-  let {id , reviewId} = req.params;
-  await Turf.findByIdAndUpdate(id ,{$pull :{reviews : reviewId}});
-  await Review.findByIdAndDelete(reviewId);
-  req.flash("error" , "Review Deleted!!");
-
-  res.redirect(`/turfs/${id}`);
-
-}))
+router.delete("/:reviewId" ,isLoggedIn,isReviewAuthor,  wrapAsync(reviewController.destroyReview));
 
 module.exports = router;
