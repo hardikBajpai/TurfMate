@@ -40,7 +40,7 @@ module.exports.isOwner = (req,res,next)=>{
             "Owner access only"
         );
 
-        return res.redirect("/");
+        return res.redirect("/home");
     }
 
     next();
