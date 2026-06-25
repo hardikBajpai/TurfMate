@@ -1,78 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../models/users');
 const wrapAsync = require('../utils/wrapAsync');
 const passport = require("passport");
 
+const userController = require("../controllers/users");
 
-router.get('/signup' , (req , res)=>{
-    res.render("users/signup.ejs");
-})
+// Get signup form
+router.get('/signup' , userController.userSignup);
 
-router.post("/signup",wrapAsync(async(req,res)=>{
-    try{
+//Submit signup form
+router.post("/signup",wrapAsync(userController.postSignup));
 
-        const {
-            username,
-            email,
-            password,
-            role
-        } = req.body;
+//Get Login form
+router.get('/login' , userController.userLogin);
 
-        const newUser = new User({
-            email,
-            username,
-            role
-        });
-
-        const registeredUser =
-            await User.register(
-                newUser,
-                password
-            );
-
-        req.login(
-            registeredUser,
-            (err)=>{
-
-                if(err){
-                    return next(err);
-                }
-
-                req.flash(
-                    "success",
-                    "Welcome to TurfMate!!"
-                );
-
-                if(
-                    registeredUser.role ===
-                    "owner"
-                ){
-                    return res.redirect(
-                        "/owner/dashboard"
-                    );
-                }
-
-                res.redirect("/turfs");
-
-            }
-        );
-
-    }catch(er){
-
-        req.flash(
-            "error",
-            er.message
-        );
-
-        res.redirect("/signup");
-    }
-}));
-
-router.get('/login' , (req, res)=>{
-    res.render("users/login.ejs");
-})
-
+//Submit Login form
 router.post(
     '/login',
     passport.authenticate(
@@ -82,31 +24,10 @@ router.post(
             failureFlash:true
         }
     ),
-    (req,res)=>{
-
-        req.flash(
-            "success",
-            "Welcome back to TurfMate!!"
-        );
-
-        if(req.user.role === "owner"){
-            return res.redirect(
-                "/owner/dashboard"
-            );
-        }
-
-        res.redirect("/turfs");
-    }
+    userController.postLogin
 );
 
-router.get("/logout" , (req , res , next)=>{
-    req.logout((err)=>{
-      if(err){
-       return next(err);
-      }
+//Logout route
+router.get("/logout" , userController.userLogout);
 
-      req.flash("success" , "you are logged out!!");
-      res.redirect("/home");
-    })
-})
 module.exports = router;
