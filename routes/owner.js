@@ -113,6 +113,9 @@ router.post("/:id" , async(req,res)=>{
 
 router.get('/:id/delete' , async(req , res)=>{
     let {id} = req.params;
+    await Booking.deleteMany({
+        turf:id
+    });
     await Turf.findByIdAndDelete(id);
     req.flash('success' , "Turf Deleted!!");
     res.redirect("/owner/dashboard");

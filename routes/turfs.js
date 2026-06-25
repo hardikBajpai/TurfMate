@@ -5,6 +5,7 @@ const Turf = require('../models/turfs');
 const ExpressError = require('../utils/ExpressError');
 const Booking = require("../models/booking");
 const {isLoggedIn, saveRedirectUrl, isReviewAuthor} = require("../middleware.js");
+const moment = require("moment");
 
 const ALL_SLOTS = [
     "06:00 AM - 07:00 AM",
@@ -78,7 +79,8 @@ router.get('/:id' , wrapAsync(async(req , res)=>{
         turf,
         allSlots: [],
         bookedSlots: [],
-        selectedDate: null
+        selectedDate: null,
+        moment
     });
 }))
 
@@ -110,7 +112,8 @@ router.get('/:id/slots' , async(req , res)=>{
         turf,
         selectedDate,
         bookedSlots,
-        allSlots: ALL_SLOTS
+        allSlots: ALL_SLOTS,
+        moment
     });
 
     
@@ -131,6 +134,30 @@ router.post("/:id/book", isLoggedIn, async (req, res) => {
     const selectedSlots = Array.isArray(slots)
         ? slots
         : [slots];
+
+    const now = moment();
+
+for(let slot of selectedSlots){
+
+    const startTime = slot.split(" - ")[0];
+
+    const bookingDateTime = moment(
+        `${date} ${startTime}`,
+        "YYYY-MM-DD hh:mm A"
+    );
+
+    if(bookingDateTime.isBefore(now)){
+
+        req.flash(
+            "error",
+            `${slot} has already passed`
+        );
+
+        return res.redirect(
+            `/turfs/${req.params.id}/slots?date=${date}`
+        );
+    }
+}
 
     const existingBookings = await Booking.find({
         turf: req.params.id,
@@ -172,6 +199,13 @@ router.post("/:id/book", isLoggedIn, async (req, res) => {
     );
 
     res.redirect(`/turfs/${req.params.id}`);
+});
+
+router.delete("/bookings/:id", async (req, res) => {
+    await Booking.findByIdAndDelete(req.params.id);
+
+    req.flash("success", "Booking deleted successfully");
+    res.redirect("/turfs/bookings");
 });
 
 

@@ -1,202 +1,406 @@
 <% layout('layouts/boilerplate') -%>
-<body>
 
-    <div class="image-container">
-      <img src=<%=turf.image%> class="turf-image" alt="turf-image">
+<div class="container py-4">
+
+    <!-- Turf Image -->
+    <div class="row mb-4">
+
+        <div class="col-12">
+
+            <img
+                src="<%= turf.image %>"
+                class="img-fluid turf-image w-100"
+                alt="turf-image"
+            >
+
+        </div>
+
     </div>
 
-    <div class="details">
-        <div class="data-details">
-            <div class="intro">
-                <h1 style="color: #1db954;font-family:Anton;"><%=turf.name%></h1>
-                <p style="opacity: 0.5;"><i class="fa-solid fa-location-dot"></i><%=turf.location%></p>
-            </div>
-            <div class="description">
-                 <div>
+    <!-- Main Content -->
+    <div class="row g-4">
+
+        <!-- LEFT SECTION -->
+        <div class="col-12 col-lg-8">
+
+            <div class="data-details">
+
+                <div class="intro mb-4">
+
+                    <h1 class="turf-title">
+                        <%= turf.name %>
+                    </h1>
+
+                    <p class="text-secondary">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= turf.location %>
+                    </p>
+
+                </div>
+
+                <div class="description">
+
                     <h5>ABOUT THIS TURF</h5>
-                    <p><%= turf.description %></p>
-                 </div>
-            </div>
-            <br>
-            <hr>
-            <h4 style="color: #1db954;font-family:Anton">Leave a review</h4>
-            <br>
-            <div class="review-form">
-                <form action="/turfs/<%=turf._id%>/reviews" method="POST" novalidate class="needs-validation">
-                    <label class="form-label" for="rating">Rating: </label>
-                    <input class="form-range"type="range" min="1" max="5" id="rating" name="review[rating]">
-                    <br>
-                    <div class="comment">
-                    <label class="form-label" for="comment">Comment: </label>
-                    <textarea required class="form-control" id="comment" name="review[comment]" cols="30" rows="5"></textarea>
-                    <div class="invalid-feedback">Please Add Some Comment For Review</div>
-                    </div>
-                    <br>
 
-                    <button class="btn btn-outline-light">Submit</button>
-                </form>
-            </div>
-            <hr>
+                    <p>
+                        <%= turf.description %>
+                    </p>
 
-          <%  if(turf.reviews.length > 0){ %>
-            <h4 style="color: #1db954;font-family:Anton">All Reviews</h4>
-          <%  } %>
+                </div>
 
-            <ul>
-            <div class="review-cards">
-               <% for(review of turf.reviews){ %>
-          <div class="card-review">
-            <div class="card-body-review">
-                <h6 class="card-title-review">@<%=  review.author.username %></h6>
-                <p class="card-text"><%= review.comment %> </p>
-                <p class="card-text"><%= review.rating %> Stars </p>
-                <form action="/turfs/<%= turf._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
-                <button class="btn btn-outline-light">Delete</button>
-            </form>
-            </div>
+                <hr>
 
-          </div>
-        <% } %>
-            </div>
-        
-        </ul>  
-        
-        </div>
+                <!-- Review Form -->
 
-        <div class="book-details">
-            <div class="book-price">
-                <h1><span style="color:#1db954;">&#8377; <%= turf.price.toLocaleString("en-IN") %> </span></h1> / hour
-                <hr> 
-        </div>
-         <h4 style="padding-left: 1rem;">CHECK AVAILIBILITY</h4>
-        <div class="booking-hero">
-            
-           
-             <form action="/turfs/<%= turf._id %>/slots" method="GET">
+                <h4
+                    style="
+                    color:#1db954;
+                    font-family:Anton;
+                    "
+                >
+                    Leave a Review
+                </h4>
 
-    <input
-        type="date"
-        class="form-control"
-        id="preferDate"
-        name="date"
-        required
-    >
-    <br>
+                <div class="review-form">
 
-    <button
-        type="submit"
-        class="btn btn-success"
-    >
-        FIND SLOTS
-    </button>
-
-</form>
-        </div>
-
-        <div class="p-1">
-       <% if(selectedDate){ %>
-
-<form id="slots-section" action="/turfs/<%= turf._id %>/book" method="POST">
-
-    <input
-        type="hidden"
-        name="date"
-        value="<%= selectedDate %>"
-        
-    >
-
-    <div class="slot-grid">
-
-        <% for(let slot of allSlots){ %>
-
-            <% if(bookedSlots.includes(slot)){ %>
-
-                <label class="slot-card booked">
-                    <span><%= slot %> (Booked)</span>
-                </label>
-
-            <% } else { %>
-
-                <label class="slot-card">
-                    <input
-                        type="checkbox"
-                        name="slots"
-                        value="<%= slot %>"
-                        data-price="<%= turf.price %>"
-                        class="slot-checkbox"
+                    <form
+                        action="/turfs/<%= turf._id %>/reviews"
+                        method="POST"
+                        novalidate
+                        class="needs-validation"
                     >
-                    <span><%= slot %></span>
-                </label>
 
-            <% } %>
+                        <label
+                            class="form-label"
+                            for="rating"
+                        >
+                            Rating
+                        </label>
 
-        <% } %>
+                        <input
+                            class="form-range"
+                            type="range"
+                            min="1"
+                            max="5"
+                            id="rating"
+                            name="review[rating]"
+                        >
+
+                        <div class="mb-3">
+
+                            <label
+                                class="form-label"
+                                for="comment"
+                            >
+                                Comment
+                            </label>
+
+                            <textarea
+                                required
+                                class="form-control"
+                                id="comment"
+                                name="review[comment]"
+                                rows="5"
+                            ></textarea>
+
+                            <div class="invalid-feedback">
+                                Please Add Some Comment For Review
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="btn btn-outline-light"
+                        >
+                            Submit
+                        </button>
+
+                    </form>
+
+                </div>
+
+                <hr>
+
+                <!-- Reviews -->
+
+                <% if(turf.reviews.length > 0){ %>
+
+                    <h4
+                        style="
+                        color:#1db954;
+                        font-family:Anton;
+                        "
+                    >
+                        All Reviews
+                    </h4>
+
+                <% } %>
+
+                <div class="row g-3">
+
+                    <% for(review of turf.reviews){ %>
+
+                        <div class="col-12 col-md-6">
+
+                            <div class="card-review h-100">
+
+                                <div class="card-body-review">
+
+                                    <h6>
+                                        @<%= review.author.username %>
+                                    </h6>
+
+                                    <p>
+                                        <%= review.comment %>
+                                    </p>
+
+                                    <p>
+                                        <%= review.rating %> Stars
+                                    </p>
+
+                                    <form
+                                        action="/turfs/<%= turf._id %>/reviews/<%= review._id %>?_method=DELETE"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            class="btn btn-outline-light"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    <% } %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SECTION -->
+
+        <div class="col-12 col-lg-4">
+
+            <div class="book-details">
+
+                <div class="book-price">
+
+                    <h1>
+
+                        <span style="color:#1db954;">
+
+                            ₹ <%= turf.price.toLocaleString("en-IN") %>
+
+                        </span>
+
+                    </h1>
+
+                    <p>/ hour</p>
+
+                    <hr>
+
+                </div>
+
+                <h4 class="mb-3">
+                    CHECK AVAILABILITY
+                </h4>
+
+                <form
+                    action="/turfs/<%= turf._id %>/slots"
+                    method="GET"
+                >
+
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="preferDate"
+                        name="date"
+                        min="<%= new Date().toISOString().split('T')[0] %>"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-success w-100 mt-3"
+                    >
+                        FIND SLOTS
+                    </button>
+
+                </form>
+
+                <% if(selectedDate){ %>
+
+                    <hr>
+
+                    <form
+                        id="slots-section"
+                        action="/turfs/<%= turf._id %>/book"
+                        method="POST"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="date"
+                            value="<%= selectedDate %>"
+                        >
+
+                        <div class="slot-grid">
+
+                            <% for(let slot of allSlots){ %>
+
+    <%
+        const startTime = slot.split(" - ")[0];
+
+        const slotDateTime = moment(
+            `${selectedDate} ${startTime}`,
+            "YYYY-MM-DD hh:mm A"
+        );
+
+        const isPast =
+            slotDateTime.isBefore(moment());
+
+        const isBooked =
+            bookedSlots.includes(slot);
+    %>
+
+    <% if(isBooked){ %>
+
+        <label class="slot-card booked">
+            <span>
+                <%= slot %> (Booked)
+            </span>
+        </label>
+
+    <% } else if(isPast){ %>
+
+        <label class="slot-card booked">
+            <span>
+                <%= slot %> (Expired)
+            </span>
+        </label>
+
+    <% } else { %>
+
+        <label class="slot-card">
+
+            <input
+                type="checkbox"
+                class="slot-checkbox"
+                name="slots"
+                value="<%= slot %>"
+                data-price="<%= turf.price %>"
+            >
+
+            <span>
+                <%= slot %>
+            </span>
+
+        </label>
+
+    <% } %>
+
+<% } %>
+
+                        </div>
+
+                        <div class="price-summary mt-3">
+
+                            <h3>
+
+                                Total :
+
+                                <span id="totalPrice">
+                                    0
+                                </span>
+
+                                ₹
+
+                            </h3>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-success w-100 mt-3"
+                        >
+                            Book Now
+                        </button>
+
+                    </form>
+
+                <% } %>
+
+            </div>
+
+        </div>
 
     </div>
 
-    <div class="price-summary">
-    <h3>
-        Total:
-        <span id="totalPrice">0</span>
-        ₹
-    </h3>
 </div>
 
-    <button
-        type="submit"
-        class="btn btn-success book-btn"
-    >
-        Book Now
-    </button>
-
-</form>
-
-<% } %>
-
-</div>
-        
-
-    </div>   
-    <script>
-
-const checkboxes =
-document.querySelectorAll(".slot-checkbox");
-
-const totalPrice =
-document.getElementById("totalPrice");
-
-checkboxes.forEach((checkbox)=>{
-
-    checkbox.addEventListener("change", ()=>{
-
-        let total = 0;
-
-        checkboxes.forEach((cb)=>{
-
-            if(cb.checked){
-                total += Number(cb.dataset.price);
-            }
-
-        });
-
-        totalPrice.textContent = total;
-    });
-
-});
-
-</script>
-</body>
-
-<% if(selectedDate){ %>
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        document
-            .getElementById("slots-section")
-            ?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-    });
-</script>
-<% } %>
 
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const checkboxes =
+            document.querySelectorAll(
+                ".slot-checkbox"
+            );
+
+        const totalPrice =
+            document.getElementById(
+                "totalPrice"
+            );
+
+        checkboxes.forEach(
+            (checkbox) => {
+
+                checkbox.addEventListener(
+                    "change",
+                    () => {
+
+                        let total = 0;
+
+                        checkboxes.forEach(
+                            (cb) => {
+
+                                if(cb.checked){
+
+                                    total += Number(
+                                        cb.dataset.price
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                        if(totalPrice){
+
+                            totalPrice.textContent =
+                                total.toLocaleString(
+                                    "en-IN"
+                                );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
+
+</script>

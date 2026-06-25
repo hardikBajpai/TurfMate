@@ -6,95 +6,173 @@
         MY BOOKINGS
     </h1>
 
-    <% if(bookings.length === 0){ %>
+    <% const validBookings = bookings.filter(booking => booking.turf); %>
+    <% const now = new Date(); %>
+
+    <% if(validBookings.length === 0){ %>
 
         <div class="empty-bookings">
             <h4>No bookings found</h4>
             <p>Book a turf and it will appear here.</p>
+
             <a href="/turfs" class="btn btn-success">
                 Explore Turfs
             </a>
         </div>
 
-    <% } %>
+    <% } else { %>
 
-    <div class="booking-container">
+        <div class="booking-container">
 
-        <% bookings.forEach(booking => { %>
+            <% validBookings.forEach(booking => { %>
 
-            <div class="booking-card">
+                <%
+                    let isPastBooking = false;
 
-                <img
-                    src="<%= booking.turf.image %>"
-                    alt="turf-image"
-                    class="booking-image"
-                >
+                    try {
+                        const bookingDateTime = new Date(booking.date);
 
-                <div class="booking-content">
+                        if (booking.slot) {
+                            const slotParts = booking.slot.split(" - ");
 
-                    <h3>
-                        <%= booking.turf.name %>
-                    </h3>
+                            if (slotParts.length > 1) {
+                                const endTime = slotParts[1];
 
-                    <p>
-                        <i class="fa-solid fa-location-dot"></i>
-                        <%= booking.turf.location %>
-                    </p>
+                                const [time, meridian] = endTime.split(" ");
 
-                    <hr>
+                                let [hours, minutes] = time.split(":").map(Number);
 
-                    <p>
-                        <strong>Date:</strong>
-                        <%= booking.date %>
-                    </p>
+                                if (meridian === "PM" && hours !== 12) {
+                                    hours += 12;
+                                }
 
-                    <p>
-                        <strong>Slot:</strong>
-                        <%= booking.slot %>
-                    </p>
+                                if (meridian === "AM" && hours === 12) {
+                                    hours = 0;
+                                }
 
-                    <p>
-                        <strong>Status:</strong>
+                                bookingDateTime.setHours(hours);
+                                bookingDateTime.setMinutes(minutes);
+                                bookingDateTime.setSeconds(0);
+                                bookingDateTime.setMilliseconds(0);
+
+                                isPastBooking = bookingDateTime < now;
+                            }
+                        }
+                    } catch (err) {
+                        isPastBooking = false;
+                    }
+                %>
+
+                <div class="booking-card">
+
+                    <img
+                        src="<%= booking.turf.image %>"
+                        alt="<%= booking.turf.name %>"
+                        class="booking-image"
+                    >
+
+                    <div class="booking-content">
+
+                        <h3>
+                            <%= booking.turf.name %>
+                        </h3>
+
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <%= booking.turf.location %>
+                        </p>
+
+                        <hr>
+
+                        <p>
+                            <strong>Date:</strong>
+                            <%= booking.date %>
+                        </p>
+
+                        <p>
+                            <strong>Slot:</strong>
+                            <%= booking.slot %>
+                        </p>
+
+                        <p>
+                            <strong>Price:</strong>
+                            ₹<%= booking.turf.price %>
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+
+                            <% if(booking.status === "booked"){ %>
+                                <span class="status-booked">
+                                    Booked
+                                </span>
+                            <% } else { %>
+                                <span class="status-cancelled">
+                                    Cancelled
+                                </span>
+                            <% } %>
+
+                        </p>
 
                         <% if(booking.status === "booked"){ %>
 
-                            <span class="status-booked">
-                                Booked
-                            </span>
+                            <% if(isPastBooking){ %>
+
+                                <form
+                                    action="/turfs/bookings/<%= booking._id %>?_method=DELETE"
+                                    method="POST"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="btn btn-danger w-100"
+                                        onclick="return confirm('Delete this booking permanently?')"
+                                    >
+                                        Delete Booking
+                                    </button>
+                                </form>
+
+                            <% } else { %>
+
+                                <form
+                                    action="/turfs/bookings/<%= booking._id %>/cancel?_method=PUT"
+                                    method="POST"
+                                >
+                                    <button
+                                        type="submit"
+                                        class="btn btn-outline-danger w-100"
+                                        onclick="return confirm('Cancel this booking?')"
+                                    >
+                                        Cancel Booking
+                                    </button>
+                                </form>
+
+                            <% } %>
 
                         <% } else { %>
 
-                            <span class="status-cancelled">
-                                Cancelled
-                            </span>
+                            <form
+                                action="/turfs/bookings/<%= booking._id %>?_method=DELETE"
+                                method="POST"
+                            >
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger w-100"
+                                    onclick="return confirm('Delete this booking permanently?')"
+                                >
+                                    Delete Booking
+                                </button>
+                            </form>
 
                         <% } %>
 
-                    </p>
-
-                    <% if(booking.status === "booked"){ %>
-
-                        <form
-                           action="/turfs/bookings/<%= booking._id %>/cancel?_method=PUT"
-                           method="POST"
-                        >
-
-                            <button
-                                class="btn btn-outline-danger"
-                            >
-                                Cancel Booking
-                            </button>
-
-                        </form>
-
-                    <% } %>
+                    </div>
 
                 </div>
 
-            </div>
+            <% }) %>
 
-        <% }) %>
+        </div>
 
-    </div>
+    <% } %>
 
 </div>
