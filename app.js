@@ -11,6 +11,7 @@ const Review = require('./models/review')
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require("method-override");
 const session = require("express-session");
+const MongoStore = require('connect-mongo').default;
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -46,8 +47,17 @@ app.get('/' , (req,res)=>{
   res.send("Hi , I am running");
 })
 
+const store = MongoStore.create({
+  mongoUrl :  MONGO_URL,
+  crypto:{
+    secret:process.env.SECRET
+  },
+  touchAfter : 24 * 3600,
+})
+
 const sessionOptions  = {
-  secret:"mysupersecretcode",
+  store,
+  secret:process.env.SECRET,
   resave:false,
   saveUninitialized:true,
   cookie:{
@@ -56,6 +66,7 @@ const sessionOptions  = {
     httpOnly:true
   }
 }
+
 
 app.use(session(sessionOptions));
 app.use(flash());
