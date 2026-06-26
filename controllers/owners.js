@@ -67,9 +67,14 @@ module.exports.createTurf =  (req,res)=>{
 };
 
 module.exports.postNewTurf = async(req,res)=>{
+        let url = req.file.path;
+        let filename = req.file.filename;
+
         const turf = new Turf(req.body.turf);
 
         turf.owner = req.user._id;
+
+        turf.image = {url , filename};
 
         await turf.save();
 
@@ -90,7 +95,21 @@ module.exports.editTurf = async(req , res )=>{
 
 module.exports.postEditTurf = async(req,res)=>{
     let {id} = req.params;
-    await Turf.findByIdAndUpdate(id , {...req.body.turf});
+
+    let turf =  await Turf.findByIdAndUpdate(id , {...req.body.turf});
+    
+    if(typeof req.file != "undefined"){
+    let url = req.file.path;
+    let filename = req.file.filename;
+    turf.image = {url , filename};
+    await turf.save();
+    }
+
+    req.flash(
+            "success",
+            "Turf updated successfully!"
+        );
+
     res.redirect("/owner/dashboard");
 }
 

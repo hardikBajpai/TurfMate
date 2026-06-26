@@ -19,7 +19,7 @@ Book your slot instantly and never miss a game.</div>
         <% for(let turf of allTurfs){ %>
             <a href="/turfs/<%= turf._id %>" class="turf-link">
     <div class="card" >
-  <img src="<%= turf.image%>" class="card-img-top" alt="turf-image"  style="height: 15rem;">
+  <img src="<%= turf.image.url%>" class="card-img-top" alt="turf-image"  style="height: 15rem;">
   <div class="card-body">
 
     <p class="card-text"><b> <span style="font-size: 1.5rem;"><%= turf.name %></span></b> <br>

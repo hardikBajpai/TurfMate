@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 const wrapAsync = require('../utils/wrapAsync');
 const passport = require("passport");
-
 const {isLoggedIn, saveRedirectUrl, isReviewAuthor , isOwner} = require("../middleware.js");
+const multer  = require('multer')
+const {storage} = require("../cloudConfig.js");
+const upload = multer({storage})
 
 const ownerController = require("../controllers/owners.js");
 
@@ -26,6 +28,7 @@ router.post(
     "/turfs",
     isLoggedIn,
     isOwner,
+    upload.single("turf[image]"),
     ownerController.postNewTurf
 );
 
@@ -33,7 +36,10 @@ router.post(
 router.get("/:id/edit" , ownerController.editTurf)
 
 //Post Edit Turf
-router.post("/:id" , ownerController.postEditTurf)
+router.post("/:id" , isLoggedIn,
+    isOwner,
+    upload.single("turf[image]"),
+    ownerController.postEditTurf)
 
 //Turf delete
 router.get('/:id/delete' , ownerController.destroyTurf)

@@ -11,7 +11,7 @@
             Edit TURF
         </h1>
 
-        <form action="/owner/<%= turf._id %>" method="POST">
+        <form action="/owner/<%= turf._id %>" method="POST" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label class="form-label">
@@ -56,19 +56,18 @@
 
             <div class="mb-3">
                 <label class="form-label">
-                    Image URL
+                    Upload New Image
                 </label>
 
+
                 <input
-                    type="text"
+                    type="file"
                     name="turf[image]"
                     class="form-control "
-                    value=<%= turf.image %>
+                    
+                    
                 >
 
-                <small class="text-secondary">
-                    Leave blank to use default image
-                </small>
             </div>
 
             <div class="mb-4">

@@ -11,7 +11,7 @@
             CREATE TURF
         </h1>
 
-        <form action="/owner/turfs" method="POST">
+        <form action="/owner/turfs" method="POST" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label class="form-label">
@@ -56,19 +56,16 @@
 
             <div class="mb-3">
                 <label class="form-label">
-                    Image URL
+                    Upload Image
                 </label>
 
                 <input
-                    type="text"
+                    type="file"
                     name="turf[image]"
                     class="form-control custom-input"
-                    placeholder="https://example.com/image.jpg"
+                    required
                 >
 
-                <small class="text-secondary">
-                    Leave blank to use default image
-                </small>
             </div>
 
             <div class="mb-4">
