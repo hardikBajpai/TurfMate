@@ -1,30 +1,39 @@
-const Turf = require('../models/turfs');
-const Review = require('../models/review');
+const Turf = require("../models/turfs");
+const Review = require("../models/review");
 
+module.exports.postReview = async (req, res) => {
 
-module.exports.postReview = async(req,res , next)=>{
+    const turf = await Turf.findById(req.params.id);
 
-  let turf = await Turf.findById(req.params.id);
+    if (!turf) {
+        req.flash("error", "Turf not found");
+        return res.redirect("/turfs");
+    }
 
-  let newReview = new Review(req.body.review);
-  newReview.author = req.user._id;
+    const newReview = new Review(req.body.review);
+    newReview.author = req.user._id;
 
-  turf.reviews.push(newReview);
+    turf.reviews.push(newReview);
 
-  await newReview.save();
-  await turf.save();
-  req.flash("success" , "New Review Created!!");
+    await newReview.save();
+    await turf.save();
 
-  res.redirect(`/turfs/${turf._id}`);
+    req.flash("success", "New review created!");
+
+    res.redirect(`/turfs/${turf._id}`);
 };
 
-module.exports.destroyReview = async(req , res)=>{
-  let {id , reviewId} = req.params;
-  await Turf.findByIdAndUpdate(id ,{$pull :{reviews : reviewId}});
-  await Review.findByIdAndDelete(reviewId);
-  req.flash("error" , "Review Deleted!!");
+module.exports.destroyReview = async (req, res) => {
 
-  res.redirect(`/turfs/${id}`);
+    const { id, reviewId } = req.params;
 
+    await Turf.findByIdAndUpdate(id, {
+        $pull: { reviews: reviewId }
+    });
+
+    await Review.findByIdAndDelete(reviewId);
+
+    req.flash("success", "Review deleted successfully!");
+
+    res.redirect(`/turfs/${id}`);
 };
-

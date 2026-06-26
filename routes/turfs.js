@@ -21,7 +21,7 @@ router.get('/:id' , wrapAsync(turfController.show));
 router.get('/:id/slots' , turfController.fetchSlot);
 
 //Slot Book
-router.post("/:id/book", isLoggedIn, turfController.bookSlot);
+router.post("/:id/book",  isLoggedIn, turfController.bookSlot);
 
 //Delete Booking
 router.delete("/bookings/:id", turfController.destroyBooking);

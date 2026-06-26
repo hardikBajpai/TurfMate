@@ -15,8 +15,8 @@ async function main(){
 }
 
 const initDB = async ()=>{
-    Turf.deleteMany({});
-    Turf.insertMany(initData);
+    await Turf.deleteMany({});
+    await Turf.insertMany(initData);
     console.log("Data has been initialized!!");
 }
 
