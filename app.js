@@ -44,7 +44,7 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
 app.get('/' , (req,res)=>{
-  res.send("Hi , I am running");
+  res.render("/turfs/home.ejs");
 })
 
 const store = MongoStore.create({
