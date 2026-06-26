@@ -23,7 +23,7 @@ const usersRouter = require("./routes/user.js");
 const ownerRouter = require("./routes/owner.js");
 
 
-const MONGO_URL = 'mongodb://127.0.0.1:27017/turfmate';
+const MONGO_URL = process.env.ATLASDB_URL;
 
 main().then(()=>{
   console.log("Connected to DB ");
