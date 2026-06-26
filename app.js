@@ -3,7 +3,7 @@ require('dotenv').config()
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const port = 8080;
+const port = process.env.PORT || 8080;
 const Turf = require('./models/turfs');
 const path = require("path");
 const ejsMate = require("ejs-mate");
