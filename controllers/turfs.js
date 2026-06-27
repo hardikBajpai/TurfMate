@@ -131,6 +131,8 @@ module.exports.bookSlot = async (req, res) => {
 
 for(let slot of selectedSlots){
 
+    const startTime = slot.split(" - ")[0];
+
     const startTime24 = moment(startTime, "hh:mm A").format("HH:mm"); // "22:00"
 
 const bookingDateTime = moment.tz(
@@ -138,15 +140,7 @@ const bookingDateTime = moment.tz(
     "YYYY-MM-DD HH:mm",
     IST
 );
-
-    if (!bookingDateTime.isValid()) {
-    req.flash("error", "Invalid date or slot");
-    return res.redirect(`/turfs/${req.params.id}/slots?date=${date}`);
-}
-
-console.log("now:", now.format());
-console.log("slot:", bookingDateTime.format());
-console.log("isBefore:", bookingDateTime.isBefore(now));
+    
 
     if(bookingDateTime.isBefore(now)){
 
