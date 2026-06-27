@@ -131,13 +131,13 @@ module.exports.bookSlot = async (req, res) => {
 
 for(let slot of selectedSlots){
 
-    const startTime = slot.split(" - ")[0];
+    const startTime24 = moment(startTime, "hh:mm A").format("HH:mm"); // "22:00"
 
-    const bookingDateTime = moment(
-        `${date} ${startTime}`,
-        "YYYY-MM-DD hh:mm A",
-        IST
-    );
+const bookingDateTime = moment.tz(
+    `${date} ${startTime24}`,
+    "YYYY-MM-DD HH:mm",
+    IST
+);
 
     if (!bookingDateTime.isValid()) {
     req.flash("error", "Invalid date or slot");
