@@ -273,19 +273,20 @@
                             <% for(let slot of allSlots){ %>
 
     <%
-        const startTime = slot.split(" - ")[0];
+    const startTime = slot.split(" - ")[0];
 
-        const slotDateTime = moment(
-            `${selectedDate} ${startTime}`,
-            "YYYY-MM-DD hh:mm A"
-        );
+    const startTime24 = moment(startTime, "hh:mm A").format("HH:mm");
 
-        const isPast =
-            slotDateTime.isBefore(moment());
+    const slotDateTime = moment.tz(
+        `${selectedDate} ${startTime24}`,
+        "YYYY-MM-DD HH:mm",
+        "Asia/Kolkata"
+    );
 
-        const isBooked =
-            bookedSlots.includes(slot);
-    %>
+    const isPast = slotDateTime.isBefore(moment().tz("Asia/Kolkata"));
+
+    const isBooked = bookedSlots.includes(slot);
+%>
 
     <% if(isBooked){ %>
 
