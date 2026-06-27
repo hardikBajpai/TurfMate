@@ -44,7 +44,7 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
 app.get('/' , (req,res)=>{
-  res.send("Server is running!!");
+  res.redirect("/home");
 })
 
 const store = MongoStore.create({
