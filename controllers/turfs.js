@@ -1,7 +1,8 @@
 const Turf = require('../models/turfs');
 const ExpressError = require('../utils/ExpressError');
 const Booking = require("../models/booking");
-const moment = require("moment");
+const moment = require('moment-timezone');
+const IST = 'Asia/Kolkata';
 
 const { model } = require("mongoose");
 
@@ -124,7 +125,7 @@ module.exports.bookSlot = async (req, res) => {
         ? slots
         : [slots];
 
-    const now = moment();
+    const now = moment().tz(IST);;
 
 for(let slot of selectedSlots){
 
@@ -132,7 +133,8 @@ for(let slot of selectedSlots){
 
     const bookingDateTime = moment(
         `${date} ${startTime}`,
-        "YYYY-MM-DD hh:mm A"
+        "YYYY-MM-DD hh:mm A",
+        IST
     );
 
     if(bookingDateTime.isBefore(now)){
@@ -190,10 +192,5 @@ for(let slot of selectedSlots){
     res.redirect(`/turfs/${req.params.id}`);
 }
 
-module.exports.destroyBooking = async (req, res) => {
-    await Booking.findByIdAndDelete(req.params.id);
 
-    req.flash("success", "Booking deleted successfully");
-    res.redirect("/turfs/bookings");
-};
 

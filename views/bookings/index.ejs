@@ -7,7 +7,7 @@
     </h1>
 
     <% const validBookings = bookings.filter(booking => booking.turf); %>
-    <% const now = new Date(); %>
+    <% const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })); %>
 
     <% if(validBookings.length === 0){ %>
 
@@ -30,7 +30,7 @@
                     let isPastBooking = false;
 
                     try {
-                        const bookingDateTime = new Date(booking.date);
+                        const bookingDateTime = new Date(new Date(booking.date).toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
 
                         if (booking.slot) {
                             const slotParts = booking.slot.split(" - ");
@@ -151,8 +151,7 @@
                         <% } else { %>
 
                             <form
-                                action="/turfs/bookings/<%= booking._id %>?_method=DELETE"
-                                method="POST"
+                                action="/turfs/bookings/<%= booking._id %>/cancel?_method=PUT" method="POST"
                             >
                                 <button
                                     type="submit"
