@@ -44,7 +44,7 @@ app.use(express.static("public"));
 app.use(methodOverride("_method"));
 
 app.get('/' , (req,res)=>{
-  res.render("/turfs/home.ejs");
+  res.send("Server is running!!");
 })
 
 const store = MongoStore.create({
