@@ -1,10 +1,8 @@
 const User = require('../models/users');
 
-
 module.exports.userSignup = (req , res)=>{
     res.render("users/signup.ejs");
 };
-
 module.exports.postSignup = async(req,res)=>{
     try{
 

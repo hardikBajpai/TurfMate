@@ -25,11 +25,22 @@ const ownerRouter = require("./routes/owner.js");
 
 
 const MONGO_URL = process.env.ATLASDB_URL;
+const initData = require('./init/data.js');
 
-main().then(()=>{
-  console.log("Connected to DB ");
-}).catch((err)=>{
-  console.log("Error in connecting DB");
+main().then(async () => {
+  console.log("Connected to DB");
+  try {
+    const count = await Turf.countDocuments();
+    if (count === 0) {
+      console.log("Database is empty. Auto-seeding initial turfs...");
+      await Turf.insertMany(initData);
+      console.log("Sample turfs seeded automatically!");
+    }
+  } catch (seedErr) {
+    console.warn("Could not auto-seed database:", seedErr.message);
+  }
+}).catch((err) => {
+  console.log("Error in connecting DB:", err);
 });
 
 async function main(){

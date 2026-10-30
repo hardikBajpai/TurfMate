@@ -1,0 +1,288 @@
+<% layout('layouts/boilerplate') -%>
+<style>
+  .ai-hero {
+    background: radial-gradient(circle at top right, rgba(29, 185, 84, 0.25), transparent 60%),
+                linear-gradient(135deg, #0d1a10 0%, #070d08 100%);
+    border-radius: 1.2rem;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(29, 185, 84, 0.3);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  }
+  .ai-tag {
+    display: inline-block;
+    background: rgba(29, 185, 84, 0.2);
+    color: #1db954;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+    border: 1px solid rgba(29, 185, 84, 0.4);
+  }
+  .filter-panel {
+    background: #141f17;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 1.8rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    color: #fff;
+  }
+  .filter-panel .form-label {
+    font-weight: 600;
+    color: #b3c2b7;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .filter-panel .form-control, .filter-panel .form-select {
+    background-color: #0b130e;
+    border: 1px solid rgba(29, 185, 84, 0.3);
+    color: #fff;
+    border-radius: 0.6rem;
+    padding: 0.65rem 0.9rem;
+  }
+  .filter-panel .form-control:focus, .filter-panel .form-select:focus {
+    border-color: #1db954;
+    box-shadow: 0 0 0 0.25rem rgba(29, 185, 84, 0.25);
+    background-color: #0b130e;
+    color: #fff;
+  }
+  .btn-ai-search {
+    background: linear-gradient(135deg, #1db954 0%, #15883e 100%);
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+  }
+  .btn-ai-search:hover {
+    background: linear-gradient(135deg, #22cf5e 0%, #199c47 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(29, 185, 84, 0.45);
+    color: #fff;
+  }
+  .rec-card {
+    background: #141f17;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .rec-card:hover {
+    transform: translateY(-6px);
+    border-color: #1db954;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px rgba(29, 185, 84, 0.25);
+  }
+  .match-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: rgba(10, 25, 15, 0.88);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid #1db954;
+    color: #1db954;
+    padding: 0.35rem 0.75rem;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+  .reason-pill {
+    display: inline-block;
+    background: rgba(29, 185, 84, 0.12);
+    color: #a4e6ba;
+    font-size: 0.78rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+    border: 1px solid rgba(29, 185, 84, 0.25);
+  }
+  .rec-card img {
+    height: 14rem;
+    object-fit: cover;
+    width: 100%;
+  }
+  .rec-card-body {
+    padding: 1.3rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: #e0e0e0;
+  }
+  .price-highlight {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1db954;
+  }
+  .price-per-hour {
+    font-size: 0.85rem;
+    color: #8c9b91;
+  }
+</style>
+
+<div class="container my-4">
+  <!-- Header / Intro Banner -->
+  <div class="ai-hero">
+    <span class="ai-tag"><i class="fa-solid fa-microchip"></i> SMART AI RECOMMENDER</span>
+    <h1 class="display-6 fw-bold mb-0">Find Your Ideal Turf</h1>
+  </div>
+
+  <!-- Interactive Preference Form -->
+  <div class="filter-panel mb-5">
+    <form action="/turfs/recommend" method="POST">
+      <div class="row g-3">
+        <!-- Sport -->
+        <div class="col-md-3 col-sm-6">
+          <label class="form-label"><i class="fa-solid fa-medal text-success"></i> Sport</label>
+          <select name="sport" class="form-select">
+            <option value="cricket" <%= preferences.sport === 'cricket' ? 'selected' : '' %>>Cricket / Box Cricket</option>
+            <option value="football" <%= preferences.sport === 'football' ? 'selected' : '' %>>Football</option>
+            <option value="badminton" <%= preferences.sport === 'badminton' ? 'selected' : '' %>>Badminton</option>
+            <option value="sports" <%= preferences.sport === 'sports' ? 'selected' : '' %>>All Multi-Sport</option>
+          </select>
+        </div>
+
+        <!-- Budget / Price -->
+        <div class="col-md-3 col-sm-6">
+          <label class="form-label d-flex justify-content-between">
+            <span><i class="fa-solid fa-wallet text-success"></i> Max Budget</span>
+            <span id="budgetValue" class="text-success fw-bold">&#8377; <%= preferences.budget || 1200 %></span>
+          </label>
+          <input type="range" class="form-range" name="budget" id="budgetRange" min="500" max="3000" step="50" value="<%= preferences.budget || 1200 %>" oninput="document.getElementById('budgetValue').innerText = '&#8377; ' + this.value">
+        </div>
+
+        <!-- Location (Strict Selection Only) -->
+        <div class="col-md-3 col-sm-6">
+          <label class="form-label"><i class="fa-solid fa-location-dot text-success"></i> Location / Locality</label>
+          <select name="location" class="form-select" required>
+            <% if (typeof allowedLocations !== 'undefined' && allowedLocations.length) { %>
+              <% for(let loc of allowedLocations) { %>
+                <option value="<%= loc %>" <%= preferences.location === loc ? 'selected' : '' %>><%= loc %></option>
+              <% } %>
+            <% } else { %>
+              <option value="Swaroop Nagar, Kanpur" <%= preferences.location === 'Swaroop Nagar, Kanpur' ? 'selected' : '' %>>Swaroop Nagar, Kanpur</option>
+              <option value="Kidwai Nagar, Kanpur" <%= preferences.location === 'Kidwai Nagar, Kanpur' ? 'selected' : '' %>>Kidwai Nagar, Kanpur</option>
+              <option value="Harsh Nagar, Kanpur" <%= preferences.location === 'Harsh Nagar, Kanpur' ? 'selected' : '' %>>Harsh Nagar, Kanpur</option>
+              <option value="Govind Nagar, Kanpur" <%= preferences.location === 'Govind Nagar, Kanpur' ? 'selected' : '' %>>Govind Nagar, Kanpur</option>
+              <option value="Hazratganj, Lucknow" <%= preferences.location === 'Hazratganj, Lucknow' ? 'selected' : '' %>>Hazratganj, Lucknow</option>
+              <option value="Aliganj, Lucknow" <%= preferences.location === 'Aliganj, Lucknow' ? 'selected' : '' %>>Aliganj, Lucknow</option>
+              <option value="Kanpur" <%= preferences.location === 'Kanpur' ? 'selected' : '' %>>Kanpur</option>
+              <option value="Lucknow" <%= preferences.location === 'Lucknow' ? 'selected' : '' %>>Lucknow</option>
+            <% } %>
+          </select>
+        </div>
+
+        <!-- Preferred Date -->
+        <div class="col-md-3 col-sm-6">
+          <label class="form-label"><i class="fa-solid fa-calendar-day text-success"></i> Playing Date</label>
+          <input type="date" name="date" id="recommendDate" class="form-control" min="<%= minDate %>" value="<%= preferences.date || minDate %>" required>
+        </div>
+
+        <!-- Preferred Time Slot -->
+        <div class="col-md-6 col-sm-12">
+          <label class="form-label"><i class="fa-solid fa-clock text-success"></i> Preferred Time Slot (2-Hour Slots)</label>
+          <select name="time" id="recommendTime" class="form-select">
+            <option value="">Any Time Slot (Flexible)</option>
+            <% const slotsToShow = (typeof availableSlots !== 'undefined') ? availableSlots : allSlots; %>
+            <% if (slotsToShow && slotsToShow.length) { %>
+              <% for(let slot of slotsToShow) { %>
+                <option value="<%= slot %>" <%= preferences.time === slot ? 'selected' : '' %>><%= slot %></option>
+              <% } %>
+            <% } else { %>
+              <option value="" disabled>No slots remaining for today</option>
+            <% } %>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-md-6 col-sm-12 d-flex align-items-end">
+          <button type="submit" class="btn btn-ai-search w-100">
+            Find Turfs
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Recommendations Result Section -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="fw-bold mb-0 text-white">
+      <i class="fa-solid fa-chart-simple text-success me-2"></i> Recommended Turfs
+    </h3>
+    <span class="badge rounded-pill bg-dark border border-secondary px-3 py-2 text-white-50">
+      Found <%= recommendations.length %> Turfs
+    </span>
+  </div>
+
+  <% if (recommendations && recommendations.length > 0) { %>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% for(let turf of recommendations) { %>
+        <div class="col">
+          <div class="rec-card">
+            <!-- Image -->
+            <img src="<%= turf.image ? (turf.image.url || turf.image) : '/images/default-turf.jpg' %>" alt="<%= turf.name %>" onerror="this.src='https://blog.playo.co/wp-content/uploads/2018/07/DSC_5239-1024x684.jpg'">
+
+            <div class="rec-card-body">
+              <h5 class="fw-bold text-white mb-1"><%= turf.name %></h5>
+              <p class="text-white-50 small mb-2 d-flex justify-content-between align-items-center flex-wrap gap-1">
+                <span><i class="fa-solid fa-location-dot text-success me-1"></i> <%= turf.location %></span>
+                <% if (turf.distance_km !== undefined) { %>
+                  <span class="badge bg-dark border border-secondary text-success"><i class="fa-solid fa-route me-1"></i><%= turf.distance_km %> km</span>
+                <% } %>
+              </p>
+
+              <!-- Match Reasons Pills -->
+              <div class="mb-3">
+                <% if (turf.match_reasons && turf.match_reasons.length) { %>
+                  <% for(let reason of turf.match_reasons) { %>
+                    <span class="reason-pill"><i class="fa-solid fa-check me-1"></i> <%= reason %></span>
+                  <% } %>
+                <% } %>
+              </div>
+
+              <!-- Time Status Badge -->
+              <% if (turf.time_status) { %>
+                <div class="mb-3">
+                  <small class="badge <%= turf.time_status.includes('available') ? 'bg-success' : 'bg-warning text-dark' %> px-2 py-1">
+                    <i class="fa-solid <%= turf.time_status.includes('available') ? 'fa-circle-check' : 'fa-clock' %> me-1"></i>
+                    <%= turf.time_status %>
+                  </small>
+                </div>
+              <% } %>
+
+              <hr class="border-secondary mt-auto my-3">
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="price-highlight">&#8377; <%= Number(turf.price).toLocaleString("en-IN") %></span>
+                  <span class="price-per-hour">/ hour</span>
+                </div>
+                <a href="/turfs/<%= turf._id %>" class="btn btn-sm btn-outline-success px-3 py-2 fw-semibold">
+                  View & Book <i class="fa-solid fa-arrow-right ms-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  <% } else { %>
+    <div class="text-center py-5 text-white-50">
+      <i class="fa-solid fa-magnifying-glass-location display-1 mb-3 text-secondary"></i>
+      <h4>No matching turfs found</h4>
+      <p>Try widening your budget or adjusting your location filter above.</p>
+    </div>
+  <% } %>
+</div>

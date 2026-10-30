@@ -8,6 +8,10 @@ const turfController = require("../controllers/turfs.js");
 //Index Route
 router.get('/' , wrapAsync(turfController.index));
 
+// AI Recommendation Routes
+router.get("/recommend", wrapAsync(turfController.recommendPage));
+router.post("/recommend", wrapAsync(turfController.recommendPage));
+
 // My bookings show route
 router.get("/bookings", isLoggedIn, turfController.showBooking);
 

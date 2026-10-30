@@ -14,12 +14,9 @@ module.exports.postReview = async (req, res) => {
     newReview.author = req.user._id;
 
     turf.reviews.push(newReview);
-
     await newReview.save();
     await turf.save();
-
     req.flash("success", "New review created!");
-
     res.redirect(`/turfs/${turf._id}`);
 };
 
